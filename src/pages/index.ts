@@ -1,0 +1,1 @@
+export * from './adm/index' //esou exportando todas as rotas localizadas ./adm/index.tx
