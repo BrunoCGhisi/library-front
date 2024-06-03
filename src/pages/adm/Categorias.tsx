@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { CategoryVO } from '../../services/types'
-import {getCategories} from '../../services/libraryService'
+import { getCategories } from '../../services/libraryService'
 
 const Categorias = () => {
     //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
   const [categories, setCategories] = useState<CategoryVO[]>() 
 
+  //Função assincrona findCategories que cria a variável response que complementa o GetCategories
   async function findCategories() {
     const response = await getCategories()
     setCategories(response)
@@ -17,7 +18,6 @@ const Categorias = () => {
   }, []);             //dependecias (controla a execução do useEffect), então nesse caso TODA vez que CATEGORIES for alterado, vai executar novamente
   console.debug(categories)
   
-    
     return (
         <div>
           {categories && categories?.map((categoria) => (
