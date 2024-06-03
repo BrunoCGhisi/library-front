@@ -20,6 +20,9 @@ const Categorias = () => {
   
     return (
         <div>
+          <h1> Aqui estão as categorias de livros: </h1>
+          <h2> use com sabedoria </h2>
+          <h3> Não consideramos fan-fic um genero literário {`>:(`} </h3>
           {categories && categories?.map((categoria) => (
             <div
               key={categoria.id_categoria}
