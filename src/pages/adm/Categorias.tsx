@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { CategoryVO } from '../../services/types'
-import { getCategories } from '../../services/libraryService'
+import { getCategories } from '../../services/CategoryService'
+
 
 const Categorias = () => {
     //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele

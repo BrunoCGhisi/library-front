@@ -3,8 +3,8 @@
 // Nesse caso:
 
 export type CategoryVO = {
-    id_categoria: string //Se torna uma string
-    categoria: string    //Se torna uma string
+    id_categoria: string  //Se torna uma string
+    categoria: string     //Se torna uma string
 }
 
 //proximo passo é index.ts
