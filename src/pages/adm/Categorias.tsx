@@ -6,6 +6,8 @@ import { getCategories } from '../../services/CategoryService'
 const Categorias = () => {
     //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
   const [categories, setCategories] = useState<CategoryVO[]>() 
+  
+
 
   //Função assincrona findCategories que cria a variável response que complementa o GetCategories
   async function findCategories() {
