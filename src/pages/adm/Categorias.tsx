@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react'
-import { CategoryVO } from '../../services/types'
-import { getCategories } from '../../services/CategoryService'
-
+import { useState, useEffect }  from 'react'
+import { CategoryVO }           from '../../services/types'
+import { getCategories }        from '../../services/CategoryService'
+import  axios                   from 'axios';
 
 const Categorias = () => {
-    //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
-  const [categories, setCategories] = useState<CategoryVO[]>() 
-  
-
+  //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
+  const [categories, setCategories]       = useState<CategoryVO[]>() 
+  //UseStates relacionados ao post
+  const [categoria, setCategoria]         = useState("");
 
   //Função assincrona findCategories que cria a variável response que complementa o GetCategories
   async function findCategories() {
@@ -15,11 +15,24 @@ const Categorias = () => {
     setCategories(response)
   }
 
-  //toda vez que entrar no página, vai a função getCategories, nesse caso vai pegar os clientes
   useEffect(() => {
-    findCategories(); //retorna uma lista de categorias
-  }, []);             //dependecias (controla a execução do useEffect), então nesse caso TODA vez que CATEGORIES for alterado, vai executar novamente
+    findCategories();     //retorna uma lista de categorias
+  }, []);                 //dependecias (controla a execução do useEffect), então nesse caso TODA vez que CATEGORIES for alterado, vai executar novamente
   console.debug(categories)
+
+  //Criando uma função assincrona Post
+  async function postCategory() {
+    try {
+      const response = await axios.post('http://localhost:3000/categoria', {
+        categoria: categoria,
+    });
+    if (response.status === 200) alert("usuário cadastro com sucesso!");
+    findCategories()
+    } catch (error: any) {
+      new Error(error);
+    }
+  }
+  
   
     return (
         <div>
@@ -41,8 +54,17 @@ const Categorias = () => {
               <span> Categoria    {categoria.categoria}     </span>
             </div>
           )
-        
+
         )}
+        <input 
+          type="text"
+          id  ="categoria"
+          placeholder='NomeCategoria'
+          value ={categoria}
+          onChange ={(e) => setCategoria(e.target.value)}
+        />
+
+        <button onClick={postCategory}> Adicionar Categoria </button>
         </div>
       )
 }
