@@ -33,6 +33,19 @@ const Categorias = () => {
     }
   }
 
+  async function putCategory(id:string) {
+    try {
+      const response = await axios.put(`http://localhost:3000/categoria?id=${id}`, {
+        categoria: categoria
+      });
+      console.log(response)
+      if (response.status === 200) alert("usuário alterado com sucesso!");
+        findCategories();
+    } catch (error: any) {
+      new Error(error)
+    }
+  }
+
   async function deleteCategory(id:string) {
     try {
       const response = await axios.delete(`http://localhost:3000/categoria?id=${id}`);
@@ -62,8 +75,13 @@ const Categorias = () => {
               <span> Id_Categoria {categoria.id_categoria}  </span>
               <span> Categoria    {categoria.categoria}     </span>
               <button
-              onClick={() => deleteCategory(categoria.id_categoria)}
-              > Deletar </button>
+              onClick={ () => 
+                deleteCategory(categoria.id_categoria)}
+              > Deletar   </button>
+              <button
+              onClick={ () => 
+                putCategory(categoria.id_categoria)}
+              > Alterar   </button>
             </div>
           )
 
