@@ -2,3 +2,4 @@
 
 export * from './CategoryVO'
 export * from './AuthorsVO'
+export * from './MembersVO'
