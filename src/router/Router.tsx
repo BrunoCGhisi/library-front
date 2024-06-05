@@ -5,6 +5,7 @@ import { Home }         from '../pages'
 import { Historico }    from '../pages'
 import { Categorias }   from '../pages'
 import { NoPage }       from '../pages'
+import Autores from '../pages/adm/Autores'
 
 
 //importando todas as paginas que foram exportadas no ../pages/index.ts
@@ -16,6 +17,7 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/home"        element={ <Home         /> } />
             <Route  path="/historico"   element={ <Historico    /> } />
             <Route  path="/admcategoria"element={ <Categorias   /> } />
+            <Route  path="/admautor"    element={ <Autores      /> } />
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>
     </BrowserRouter>
