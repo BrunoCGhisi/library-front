@@ -14,7 +14,7 @@ const Autores = () => {
 
     async function getAuthors(){
         try {
-            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+  
             const response = await axios.get("http://localhost:3000/autor");
             console.log(response.data.autores)
             
