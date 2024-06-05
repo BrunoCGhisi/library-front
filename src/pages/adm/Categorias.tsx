@@ -33,25 +33,26 @@ const Categorias = () => {
     }
   }
 
-  async function putCategory(id:string) {
+  //Criando uma função assincrona Put
+  async function putCategory(id:string) { //Precisa de um argumento, nesse caso o ID para alterar a tabela X
     try {
-      const response = await axios.put(`http://localhost:3000/categoria?id=${id}`, {
-        categoria: categoria
+      const response = await axios.put(`http://localhost:3000/categoria?id=${id}`, { //Vai procurar pelo argumento
+        categoria: categoria //A unica informação além do Id_categoria dentro do Banco
       });
       console.log(response)
-      if (response.status === 200) alert("usuário alterado com sucesso!");
-        findCategories();
+      if (response.status === 200) alert("usuário alterado com sucesso!"); //Se a alteração ocorrer, pop up, 
+        findCategories(); //refresh nas categorias
     } catch (error: any) {
       new Error(error)
     }
   }
-
-  async function deleteCategory(id:string) {
+  //Criando uma função assincrona Put
+  async function deleteCategory(id:string) { //Precisa de um argumento, nesse caso o ID para alterar a tabela X
     try {
-      const response = await axios.delete(`http://localhost:3000/categoria?id=${id}`);
+      const response = await axios.delete(`http://localhost:3000/categoria?id=${id}`); //Vai procurar pelo argumento
       console.log(response)
-      if (response.status === 200) alert("usuário deletado com sucesso!");
-        findCategories();
+      if (response.status === 200) alert("usuário deletado com sucesso!"); //Se o delete ocorrer, pop up,
+        findCategories(); //refresh nas categorias
     } catch (error: any) {
       new Error(error)
     }
