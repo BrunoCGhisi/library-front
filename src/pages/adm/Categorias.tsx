@@ -32,8 +32,17 @@ const Categorias = () => {
       new Error(error);
     }
   }
-  
-  
+
+  async function deleteCategory(id:string) {
+    try {
+      const response = await axios.delete(`http://localhost:3000/categoria?id=${id}`);
+      console.log(response)
+      if (response.status === 200) alert("usuário deletado com sucesso!");
+        findCategories();
+    } catch (error: any) {
+      new Error(error)
+    }
+  }
     return (
         <div>
           <h1> Aqui estão as categorias de livros: </h1>
@@ -52,6 +61,9 @@ const Categorias = () => {
             > 
               <span> Id_Categoria {categoria.id_categoria}  </span>
               <span> Categoria    {categoria.categoria}     </span>
+              <button
+              onClick={() => deleteCategory(categoria.id_categoria)}
+              > Deletar </button>
             </div>
           )
 
