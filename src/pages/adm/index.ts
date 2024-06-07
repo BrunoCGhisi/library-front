@@ -3,3 +3,4 @@
 export { default as Categorias }    from './Categorias'
 export { default as Autores }       from './Autores'
 export { default as Membros }       from './Membros'
+export { default as Template }      from './Template'

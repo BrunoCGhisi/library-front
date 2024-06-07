@@ -7,6 +7,7 @@ import { Categorias }   from '../pages'
 import { NoPage }       from '../pages'
 import { Membros }      from '../pages'
 import { Autores }      from '../pages'
+import { Template }     from '../pages'
 
 
 
@@ -15,12 +16,13 @@ import { Autores }      from '../pages'
 const Router = () => (   //constante Router é igual a uma função vazia que vai executar a pesquisa rotas e paginas
     <BrowserRouter>     
         <Routes> 
-            <Route  index               element={ <Categorias   /> } />
+            <Route  index               element={ <Template     /> } />
             <Route  path="/home"        element={ <Home         /> } />
             <Route  path="/historico"   element={ <Historico    /> } />
             <Route  path="/admcategoria"element={ <Categorias   /> } />
             <Route  path="/admautor"    element={ <Autores      /> } />
             <Route  path="/admmembro"   element={ <Membros      /> } />
+            <Route  path="/template"    element={ <Template     /> } />
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>
     </BrowserRouter>
