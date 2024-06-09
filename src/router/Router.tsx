@@ -10,7 +10,8 @@ import { Autores }      from '../pages'
 import { Template }     from '../pages'
 import { Livros }       from '../pages'
 import { Reservas }     from '../pages'
-
+import { Emprestimos }  from '../pages'
+import { Status_emprestimos }  from '../pages'
 
 
 //importando todas as paginas que foram exportadas no ../pages/index.ts
@@ -25,7 +26,9 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/Autores"     element={ <Autores      /> } />
             <Route  path="/Membros"     element={ <Membros      /> } />
             <Route  path="/Livros"      element={ <Livros       /> } />
-            <Route  path="/Reservas"    element={ <Reservas       /> } />
+            <Route  path="/Reservas"    element={ <Reservas     /> } />
+            <Route  path="/Emprestimos" element={ <Emprestimos  /> } />
+            <Route  path="/Status_emprestimos" element={ <Status_emprestimos  /> } />
             <Route  path="/Template"    element={ <Template     /> } />
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>
