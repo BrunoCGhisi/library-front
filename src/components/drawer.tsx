@@ -1,4 +1,5 @@
 import * as React from 'react';
+//Material UI 
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -19,9 +20,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 //Icones
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'; //Autores
-import ClassIcon from '@mui/icons-material/Class'; //Categorias
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';    
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';  //Autores
+import ClassIcon from '@mui/icons-material/Class';                  //Categorias
+import BeenhereIcon from '@mui/icons-material/Beenhere';            //Emprestimo
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';      // Livros
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';          //Membros
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';    //Multa
+import PaymentIcon from '@mui/icons-material/Payment';              //Pagamento
+import LowPriorityIcon from '@mui/icons-material/LowPriority';      //Reservas
 
 
 const drawerWidth = 240;
@@ -59,6 +65,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
+
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -137,7 +144,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <List>
           {['Autores', 'Categorias', 'Emprestimos', 'Livros', 'Membros', 'Multas', 'Pagamentos', 'Reservas'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -155,6 +162,13 @@ export default function MiniDrawer() {
                 >
                   {index === 0 && <AssignmentIndIcon />}
                   {index === 1 && <ClassIcon  />}
+                  {index === 2 && <BeenhereIcon  />}
+                  {index === 3 && <AutoStoriesIcon  />}
+                  {index === 4 && <PeopleAltIcon  />}
+                  {index === 5 && <RequestQuoteIcon  />}
+                  {index === 6 && <PaymentIcon  />}
+                  {index === 7 && <LowPriorityIcon  />}
+                  
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
