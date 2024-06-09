@@ -3,3 +3,5 @@
 export * from './CategoryVO'
 export * from './AuthorsVO'
 export * from './MembersVO'
+export * from './BooksVO'
+export * from './ReserveVO'

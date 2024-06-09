@@ -9,6 +9,7 @@ import { Membros }      from '../pages'
 import { Autores }      from '../pages'
 import { Template }     from '../pages'
 import { Livros }       from '../pages'
+import { Reservas }     from '../pages'
 
 
 
@@ -23,7 +24,8 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/admcategoria"element={ <Categorias   /> } />
             <Route  path="/admautor"    element={ <Autores      /> } />
             <Route  path="/admmembro"   element={ <Membros      /> } />
-            <Route  path="/admlivro"    element={ <Livros        /> } />
+            <Route  path="/admlivro"    element={ <Livros       /> } />
+            <Route  path="/admreserva"  element={ <Reservas       /> } />
             <Route  path="/template"    element={ <Template     /> } />
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>

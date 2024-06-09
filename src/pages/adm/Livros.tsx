@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { BooksVO }             from "../../services/types/booksVO";
+import { BooksVO }             from "../../services/types";
 import axios                   from "axios";
 
 const Livros = () =>{
 
   const [books, setBooks]       = useState<BooksVO[]>() 
-
-  const [id_autor_livro, setId_autor_livro] = useState("");
+  const [fk_autor, setFk_autor]             = useState("");
+  const [fk_categoria, setFk_categoria]        = useState("");
   const [titulo, setTitulo]                 = useState("");
   const [ano, setAno]                       = useState("");
-  const [disponivel, setDisponivel]         = useState("");
+  const [disponiveis, setDisponiveis]         = useState("");
   const [estoque, setEstoque]               = useState("");
   const [capa, setCapa]                     = useState("");
  
@@ -33,10 +33,11 @@ const Livros = () =>{
         try {
 
             const response = await axios.post('http://localhost:3000/livro',{
-                id_autor_livro: id_autor_livro,
+                fk_autor: fk_autor,
+                fk_categoria: fk_categoria,
                 titulo: titulo,
                 ano: ano,
-                disponivel: disponivel,
+                disponiveis: disponiveis,
                 estoque: estoque,
                 capa: capa
             });
@@ -56,10 +57,11 @@ const Livros = () =>{
         try {
 
             const response = await axios.put(`http://localhost:3000/livro?id=${id}`,{
-                id_autor_livro: id_autor_livro,
+                fk_autor: fk_autor,
+                fk_categoria: fk_categoria,
                 titulo: titulo,
                 ano: ano,
-                disponivel: disponivel,
+                disponiveis: disponiveis,
                 estoque: estoque,
                 capa: capa
             });
@@ -125,10 +127,10 @@ return(
          
         <input 
           type="text"
-          id  ="id_autor_livro"
-          placeholder='Id_autor_livro'
-          value ={id_autor_livro}
-          onChange ={(e) => setId_autor_livro(e.target.value)}
+          id  ="id_autor"
+          placeholder='Id_autor'
+          value ={fk_autor}
+          onChange ={(e) => setFk_autor(e.target.value)}
         />
 
         <input 
@@ -149,10 +151,10 @@ return(
 
         <input 
           type="text"
-          id  ="disponivel"
-          placeholder='disponivel'
-          value ={disponivel}
-          onChange ={(e) => setDisponivel(e.target.value)}
+          id  ="disponiveis"
+          placeholder='disponiveis'
+          value ={disponiveis}
+          onChange ={(e) => setDisponiveis(e.target.value)}
         />
           
         <input 
@@ -169,6 +171,14 @@ return(
           placeholder='capa'
           value ={capa}
           onChange ={(e) => setCapa(e.target.value)}
+        />
+
+        <input 
+          type="text"
+          id  ="fk_categoria"
+          placeholder='fk_categoria'
+          value ={fk_categoria}
+          onChange ={(e) => setFk_categoria(e.target.value)}
         />
 
         <button onClick={postBooks}> Adicionar Livro </button>
