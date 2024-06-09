@@ -21,12 +21,12 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  index               element={ <Template     /> } />
             <Route  path="/home"        element={ <Home         /> } />
             <Route  path="/historico"   element={ <Historico    /> } />
-            <Route  path="/admcategoria"element={ <Categorias   /> } />
-            <Route  path="/admautor"    element={ <Autores      /> } />
-            <Route  path="/admmembro"   element={ <Membros      /> } />
-            <Route  path="/admlivro"    element={ <Livros       /> } />
-            <Route  path="/admreserva"  element={ <Reservas       /> } />
-            <Route  path="/template"    element={ <Template     /> } />
+            <Route  path="/Categorias"  element={ <Categorias   /> } />
+            <Route  path="/Autores"     element={ <Autores      /> } />
+            <Route  path="/Membros"     element={ <Membros      /> } />
+            <Route  path="/Livros"      element={ <Livros       /> } />
+            <Route  path="/Reservas"    element={ <Reservas       /> } />
+            <Route  path="/Template"    element={ <Template     /> } />
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>
     </BrowserRouter>

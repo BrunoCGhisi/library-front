@@ -19,7 +19,7 @@ const Categorias = () => {
     findCategories();     //retorna uma lista de categorias
   }, []);                 //dependecias (controla a execução do useEffect), então nesse caso TODA vez que CATEGORIES for alterado, vai executar novamente
   console.debug(categories)
-
+  
   //Criando uma função assincrona Post
   async function postCategory() {
     try {
