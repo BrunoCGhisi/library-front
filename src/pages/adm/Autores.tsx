@@ -1,5 +1,5 @@
 import { useState, useEffect }  from 'react'
-import { AuthorsVO}             from '../../services/types'
+import { AuthorsVO }            from '../../services/types'
 import  axios                   from 'axios';
 
 const Autores = () => {
@@ -16,8 +16,6 @@ const Autores = () => {
         try {
   
             const response = await axios.get("http://localhost:3000/autor");
-            console.log(response.data.autores)
-            
             setAuthors(response.data.autores)  // aqui pe o nome que vem do back antona burra 
         } catch (error: any) {
            new Error(error); 
