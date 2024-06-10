@@ -10,6 +10,10 @@ const Emprestimos = () => {
   const [data_emprestimo, setData_emprestimo] = useState("");
   const [data_retorno, setData_retorno]       = useState("");
   const [fk_status, setFk_status]             = useState(0);
+
+    const [open, setOpen] = useState(false);
+    const addOn = () => setOpen(true);
+    const addOf = () => setOpen(false);
 //----------------------------------------------------------
     async function getLoan(){
         try {

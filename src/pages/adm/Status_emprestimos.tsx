@@ -7,6 +7,10 @@ const Status_emprestimos = () => {
   const [status_loans, setStatus_loans]    = useState<Status_LoanVO[]>() 
   const [status_atual, setStatus_atual]    = useState("");
 
+  const [open, setOpen] = useState(false);
+  const addOn = () => setOpen(true);
+  const addOf = () => setOpen(false);
+
 //----------------------------------------------------------
     async function getStatus_loan(){
         try {

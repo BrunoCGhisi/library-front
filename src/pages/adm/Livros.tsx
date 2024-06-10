@@ -12,6 +12,10 @@ const Livros = () =>{
   const [disponiveis, setDisponiveis]         = useState("");
   const [estoque, setEstoque]               = useState("");
   const [capa, setCapa]                     = useState("");
+
+    const [open, setOpen] = useState(false);
+    const addOn = () => setOpen(true);
+    const addOf = () => setOpen(false);
  
 //------------------------------------------------------------------
     async function getBooks() {
