@@ -29,8 +29,10 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote';    //Multa
 import PaymentIcon from '@mui/icons-material/Payment';              //Pagamento
 import LowPriorityIcon from '@mui/icons-material/LowPriority';      //Reservas
 
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';    //Logo
 
-const drawerWidth = 240;
+//Tamanho do drawer aberto
+const drawerWidth = 200;
   
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -53,13 +55,14 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+export const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
+
 }));
 
 interface AppBarProps extends MuiAppBarProps {
@@ -85,7 +88,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const AdmDrawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
     flexShrink: 0,
@@ -102,7 +105,7 @@ const AdmDrawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'ope
   }),
 );
 
-export default function MiniDrawer() {
+const MiniDrawer = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -118,6 +121,7 @@ export default function MiniDrawer() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
+        
         <Toolbar>
           <IconButton
             color="inherit"
@@ -130,18 +134,27 @@ export default function MiniDrawer() {
             }}
           >
             <MenuIcon />
+            
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Lista de Categorias
           </Typography>
         </Toolbar>
       </AppBar>
-      <AdmDrawer variant="permanent" open={open}>
+            
+      <Drawer variant="permanent" open={open}>
+        
         <DrawerHeader>
+          <LocalLibraryIcon />
+          <Typography>
+            Nome da Livraria
+          </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
+
+        
         <List>
           {['Autores', 'Categorias', 'Emprestimos', 'Livros', 'Membros', 'Multas', 'Pagamentos', 'Reservas'].map((text, index) => (
             <ListItem key={index} disablePadding sx={{ display: 'block' }}>
@@ -152,6 +165,7 @@ export default function MiniDrawer() {
                   px: 2.5,
                 }}
                 component={Link} to={"/" + text}
+                  
               >
                 <ListItemIcon
                   sx={{
@@ -159,8 +173,10 @@ export default function MiniDrawer() {
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}
+
+                  //Impondo icones baseado no index do item na lista
                 >
-                  {index === 0 && <AssignmentIndIcon />}
+                  {index === 0 && <AssignmentIndIcon />} 
                   {index === 1 && <ClassIcon  />}
                   {index === 2 && <BeenhereIcon  />}
                   {index === 3 && <AutoStoriesIcon  />}
@@ -168,44 +184,19 @@ export default function MiniDrawer() {
                   {index === 5 && <RequestQuoteIcon  />}
                   {index === 6 && <PaymentIcon  />}
                   {index === 7 && <LowPriorityIcon  />}
-                  
                 </ListItemIcon>
+                
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-      </AdmDrawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.    
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </Box>
+        
+      </Drawer>
+      
+      
     </Box>
   );
 }
+
+export default MiniDrawer
