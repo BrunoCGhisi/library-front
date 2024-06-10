@@ -1,2 +1,2 @@
-export { default as MiniDrawer }  from './drawer'
-export { DrawerHeader}           from './drawer'
+export { default as MiniDrawer }    from './Drawer'
+export { DrawerHeader}              from './Drawer'

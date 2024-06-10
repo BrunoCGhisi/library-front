@@ -1,7 +1,7 @@
 import { useState, useEffect }  from 'react'
 import { CategoryVO }           from '../../services/types'
 import { getCategories }        from '../../services/CategoryService'
-import { MiniDrawer }            from './components'
+import { MiniDrawer }           from './components'
 import {DrawerHeader}           from './components'
 import  axios                   from 'axios';
 
@@ -22,24 +22,25 @@ import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import Modal from '@mui/material/Modal';
 
 
-import Link from '@mui/material/Link';
-import MuiDrawer from '@mui/material/Drawer';
+import Link             from '@mui/material/Link';
+import MuiDrawer        from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Toolbar          from '@mui/material/Toolbar';
+import List             from '@mui/material/List';
+import CssBaseline      from '@mui/material/CssBaseline';
+import Typography       from '@mui/material/Typography';
+import Divider          from '@mui/material/Divider';
+import IconButton       from '@mui/material/IconButton';
+import MenuIcon         from '@mui/icons-material/Menu';
+import ChevronLeftIcon  from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import ListItem         from '@mui/material/ListItem';
+import ListItemButton   from '@mui/material/ListItemButton';
+import ListItemIcon     from '@mui/material/ListItemIcon';
+import ListItemText     from '@mui/material/ListItemText';
 
 
 //Icones
@@ -58,7 +59,23 @@ const Template = () => {
     const [categories, setCategories] = useState<CategoryVO[]>([]);
     //UseStates relacionados ao post
     const [categoria, setCategoria]         = useState("");
-  
+
+    const [open, setOpen] = React.useState(false);
+    const addOn = () => setOpen(true);
+    const addOf = () => setOpen(false);
+
+    const ModalStyle = {
+      position: 'absolute' as 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      
+      boxShadow: 24,
+      p: 4,
+    };
+
     //Função assincrona findCategories que cria a variável response que complementa o GetCategories
     async function findCategories() {
       const response = await getCategories()
@@ -132,6 +149,7 @@ const Template = () => {
                     </AccordionActions>
                 </Accordion>
                 </Box>
+
                 <Box sx={{ display: 'flex', flexDirection:'row'}}> 
                     <Autocomplete
                         disablePortal
@@ -143,9 +161,24 @@ const Template = () => {
                 </Box>
                 
                 <Stack direction="row" spacing={2}>
-                    <Button variant="outlined" startIcon={<AddCircleOutlineIcon />}>
+                    <Button onClick={addOn} variant="outlined" startIcon={<AddCircleOutlineIcon />  }>
                         Adicionar
                     </Button>
+                    <Modal
+                        open={open}
+                        onClose={addOf}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                    <Box sx={ModalStyle}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Nova categoria
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Texto texto texto
+                        </Typography>
+                        </Box>
+                    </Modal>
                     <Button variant="outlined" startIcon={<SearchIcon   />}>
                         Pesquisar
                     </Button>
