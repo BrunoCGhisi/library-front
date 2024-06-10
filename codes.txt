@@ -14,6 +14,10 @@
 
 - npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 
+***Baixar Grid***
+
+- npm install @mui/material @emotion/react @emotion/styled
+
 ***Pegar codigo do repositorio pro codigo local***
 
 - git pull

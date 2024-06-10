@@ -6,9 +6,6 @@ import {DrawerHeader}           from './components'
 import  axios                   from 'axios';
 
 
-
-
-
 import * as React from 'react';
 //Material UI 
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
@@ -24,6 +21,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Modal from '@mui/material/Modal';
 
+//Relacionados ao Grid
+import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 
 import Link             from '@mui/material/Link';
 import MuiDrawer        from '@mui/material/Drawer';
@@ -43,12 +42,19 @@ import ListItemIcon     from '@mui/material/ListItemIcon';
 import ListItemText     from '@mui/material/ListItemText';
 
 
+
 //Icones
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SearchIcon from '@mui/icons-material/Search'; 
 import DeleteIcon   from    '@mui/icons-material/Delete';
 import EditIcon     from    '@mui/icons-material/Edit';
+import DoneIcon from '@mui/icons-material/Done';
+
+//Estilos
+
+import { ModalStyle } from './styles'
+import { GridStyle }  from './styles'
 
 
 
@@ -64,17 +70,8 @@ const Template = () => {
     const addOn = () => setOpen(true);
     const addOf = () => setOpen(false);
 
-    const ModalStyle = {
-      position: 'absolute' as 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 400,
-      bgcolor: 'background.paper',
-      
-      boxShadow: 24,
-      p: 4,
-    };
+    
+
 
     //Função assincrona findCategories que cria a variável response que complementa o GetCategories
     async function findCategories() {
@@ -124,6 +121,26 @@ const Template = () => {
         new Error(error)
       }
     }
+
+    // Constantes do Grid
+    const rows: GridRowsProp = [
+      { id: 'Oi', col1: 'Tchau'},
+    ]
+
+    const columns: GridColDef[] = [
+      { field: 'id',   headerName: 'ID', width: 90 },
+
+      { 
+        field: 'col1', 
+        headerName: 'Categorias 1', 
+        width: 150 
+      },
+      { 
+        field: 'col2', 
+        headerName: 'Operações', 
+        width: 150 
+      },
+    ];
     
       return (
         <Box>
@@ -174,8 +191,20 @@ const Template = () => {
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                             Nova categoria
                         </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Texto texto texto
+                        
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}> 
+                          
+                          <TextField    //Prencher Categoria
+                            id="outlined-helperText"
+                            label="Categoria"
+                            defaultValue=""
+                            helperText="Obrigatório"
+                            value = {categoria}
+                            onChange ={(e) => setCategoria(e.target.value)}
+                          />
+                        <Button onClick={postCategory} variant="outlined" startIcon={<DoneIcon />  }>
+                          Finalizar
+                        </Button>
                         </Typography>
                         </Box>
                     </Modal>
@@ -183,6 +212,29 @@ const Template = () => {
                         Pesquisar
                     </Button>
                 </Stack>
+                {categories && categories?.map((categoria) => (
+                  <Box key={categoria.id_categoria} sx={GridStyle} > 
+                  <script> 
+                    
+                  </script>
+                    <DataGrid 
+                    
+                    rows={rows} 
+                    columns={columns} 
+                    initialState={{
+                      pagination: {
+                        paginationModel: {
+                          pageSize: 5,
+                        },
+                      },
+                    }}
+                    pageSizeOptions={[5]}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                  /> 
+                </Box>
+                )
+              )}
             </Box>
         </Box>
           
