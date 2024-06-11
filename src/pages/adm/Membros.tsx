@@ -14,6 +14,10 @@ const Membros = () => {
   const [is_adm, setIs_adm]    = useState(0);
   const [status, setStatus]    = useState(0);
 
+    const [open, setOpen] = useState(false);
+    const addOn = () => setOpen(true);
+    const addOf = () => setOpen(false);
+
   //------------------------------------------------------
 
     async function getMembers(){

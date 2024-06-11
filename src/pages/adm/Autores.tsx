@@ -10,6 +10,10 @@ const Autores = () => {
   //UseStates variaveis da tabela
   const [nome, setNome]         = useState("");
 
+    const [open, setOpen] = useState(false);
+    const addOn = () => setOpen(true);
+    const addOf = () => setOpen(false);
+
   //------------------------------------------------------
 
     async function getAuthors(){

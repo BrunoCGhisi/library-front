@@ -1,11 +1,12 @@
 import { useState, useEffect }  from 'react'
 import { CategoryVO }           from '../../services/types'
 import { getCategories }        from '../../services/CategoryService'
+
 import  axios                   from 'axios';
 
 const Categorias = () => {
   //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
-  const [categories, setCategories]       = useState<CategoryVO[]>() 
+  const [categories, setCategories]       = useState<CategoryVO[]>([]) 
   //UseStates relacionados ao post
   const [categoria, setCategoria]         = useState("");
 
@@ -57,8 +58,11 @@ const Categorias = () => {
       new Error(error)
     }
   }
+  
     return (
+      
         <div>
+          
           <h1> Aqui estão as categorias de livros: </h1>
           <h2> use com sabedoria </h2>
           <h3> Não consideramos fan-fic um genero literário {`>:(`} </h3>
@@ -97,7 +101,10 @@ const Categorias = () => {
 
         <button onClick={postCategory}> Adicionar Categoria </button>
         </div>
+        
       )
+
+      
 }
 
 export default Categorias

@@ -4,13 +4,17 @@ import  axios                   from 'axios';
 
 const Reservas = () => {
 
-  const [reserves, setReserves]                 = useState<ReserveVO[]>() 
+  const [reserves, setReserves]                 = useState<ReserveVO[]>()  //Arruma isso imediatamente Maria Joana
   const [fk_livro, setFk_livro]               = useState("");
   const [fk_membro, setFk_membro]             = useState("");
   const [data_reserva, setData_reserva]       = useState("");
   const [data_retirada, setData_retirada]     = useState("");
   const [status_reserva, setStatus_reserva]   = useState(0);
   const [status_retirada, setStatus_retirada] = useState(0);
+
+    const [open, setOpen] = useState(false);
+    const addOn = () => setOpen(true);
+    const addOf = () => setOpen(false);
 
 //----------------------------------------------------------
     async function getReserve(){
