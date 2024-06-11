@@ -11,18 +11,18 @@ const Status_emprestimos = () => {
     async function getStatus_loan(){
         try {
 
-            const response = await axios.get("http://localhost:3000/Status_emprestimo");
-            setStatus_loans(response.data.Status_emprestimos)   
+            const response = await axios.get("http://localhost:3000/sttsEmprestimo");
+            setStatus_loans(response.data.status_emprestimos)   
 
         } catch (error: any) {
-            console.log("Erro na requisição:", error.response.data); 
+            console.log(error.response?.data || error.message); 
         }
     }
         
     async function postStatus_loan() {
         
         try {
-            const response = await axios.post('http://localhost:3000/Status_emprestimo', {
+            const response = await axios.post('http://localhost:3000/sttsEmprestimo', {
                 status_atual: status_atual
             });
             getStatus_loan();
@@ -35,7 +35,7 @@ const Status_emprestimos = () => {
 
     async function putStatus_loan(id:string) {
         try {
-            const response = await axios.put(`http://localhost:3000/Status_emprestimo?id=${id}`, {
+            const response = await axios.put(`http://localhost:3000/sttsEmprestimo?id=${id}`, {
                 status_atual: status_atual
         });
             if (response.status === 200) alert("Stts_emprestimo atualizado com sucesso!");
@@ -47,7 +47,7 @@ const Status_emprestimos = () => {
 
     async function delStatus_loan(id:string) {
         try {
-            const response = await axios.delete(`http://localhost:3000/Status_emprestimo?id=${id}`);
+            const response = await axios.delete(`http://localhost:3000/sttsEmprestimo?id=${id}`);
             getStatus_loan(); 
             if (response.status === 200) alert("reserva atualizado com sucesso!");
         } catch (error: any) {
@@ -55,9 +55,9 @@ const Status_emprestimos = () => {
         }
     }
 //------------------------------------------------------
-    useEffect(() => {
-        getStatus_loan();
-    }, []);
+useEffect(() => {
+    getStatus_loan();
+}, []);
 
 return(
 
@@ -65,10 +65,10 @@ return(
         <h1> Aqui estão os autores dos seus livros favoritos: </h1>
         <h2> use com sabedoria </h2>
         <h3> Separamos a obra do autor {`>:(`} </h3>
-        {status_loans && status_loans?.length > 0 ? status_loans.map((Stts_emprestimo) => 
+        {status_loans && status_loans?.length > 0 ? status_loans.map((stts_emprestimo) => 
             ( 
                 <div
-                    key={Stts_emprestimo.id_status}
+                    key={stts_emprestimo.id_status}
                     style={{
                     display: 'flex',
                     border: '1px solid #ff0',
@@ -77,10 +77,10 @@ return(
                     alignItems: 'center'
                     }}> 
 
-                    <span> Id_reserva {Stts_emprestimo.id_status}  </span>
-                    <span> Data    {Stts_emprestimo.status_atual}     </span>
-                    <button onClick={ () => putStatus_loan(Stts_emprestimo.id_status)}> Alterar reserva </button>
-                    <button onClick={ () => delStatus_loan(Stts_emprestimo.id_status)}> Deletar reserva </button>
+                    <span> Id_status {stts_emprestimo.id_status}  </span>
+                    <span> Status    {stts_emprestimo.status_atual}     </span>
+                    <button onClick={ () => putStatus_loan(stts_emprestimo.id_status)}> Alterar reserva </button>
+                    <button onClick={ () => delStatus_loan(stts_emprestimo.id_status)}> Deletar reserva </button>
                 </div>
             )) : 
             (

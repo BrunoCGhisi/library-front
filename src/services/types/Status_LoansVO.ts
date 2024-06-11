@@ -1,5 +1,5 @@
 
 export type Status_LoanVO = {
-    id_status: string,
-    status_atual: string,
+    id_status: string
+    status_atual: string
 }   
