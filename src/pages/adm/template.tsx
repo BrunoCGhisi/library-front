@@ -56,6 +56,10 @@ import DoneIcon from '@mui/icons-material/Done';
 import { ModalStyle } from './styles'
 import { GridStyle }  from './styles'
 
+//Componentes
+
+import { PAlertTrue, PAlertFalse} from './components/Alert'
+
 
 
 
@@ -178,8 +182,8 @@ const Template = () => {
         <Box sx={{ display: 'flex', flexDirection:'column', marginLeft: 25, marginTop: 15, gap:5}}>
         {
           PAlert === true ? 
-          <Alert severity="success">This is a success Alert.</Alert> : 
-          <Alert severity="error">  This is a error </Alert>
+          <PAlertTrue  /> : 
+          <PAlertFalse />
         }
                 <Box sx={{ display: 'flex', flexDirection:'row'}}> 
                 <Accordion>

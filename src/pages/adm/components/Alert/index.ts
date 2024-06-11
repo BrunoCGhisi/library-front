@@ -1,0 +1,1 @@
+export { PAlertTrue, PAlertFalse} from './PAlert'
