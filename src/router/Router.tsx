@@ -7,7 +7,7 @@ import { Categorias }   from '../pages'
 import { NoPage }       from '../pages'
 import { Membros }      from '../pages'
 import { Autores }      from '../pages'
-//import { Template }     from '../pages' 
+import { Template }     from '../pages' 
 import { Livros }       from '../pages'
 import { Reservas }     from '../pages'
 import { Emprestimos }  from '../pages'
@@ -22,7 +22,7 @@ import { Pagamentos }   from '../pages'
 const Router = () => (   //constante Router é igual a uma função vazia que vai executar a pesquisa rotas e paginas
     <BrowserRouter>     
         <Routes> 
-{/*             <Route  index               element={ <Template     /> } /> */}
+            <Route  index               element={ <Template     /> } /> 
             <Route  path="/home"        element={ <Home         /> } />
             <Route  path="/historico"   element={ <Historico    /> } />
             <Route  path="/Categorias"  element={ <Categorias   /> } />
@@ -34,8 +34,7 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/Status_emprestimos" element={ <Status_emprestimos  /> } />
             <Route  path="/Multas"      element={ <Multas       /> } />
             <Route  path="/Pagamentos"  element={ <Pagamentos   /> } />
-            {/*<Route  path="/Template"    element={ <Template     /> } /> */}
-
+            <Route  path="/Template"    element={ <Template     /> } /> 
             <Route  path="/Status_emprestimos" 
                     element={ <Status_emprestimos  /> } />
             <Route  path="*"            element={ <NoPage       /> } />
