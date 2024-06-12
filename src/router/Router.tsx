@@ -7,7 +7,7 @@ import { Categorias }   from '../pages'
 import { NoPage }       from '../pages'
 import { Membros }      from '../pages'
 import { Autores }      from '../pages'
-import { Template }     from '../pages' 
+//import { Template }     from '../pages' 
 import { Livros }       from '../pages'
 import { Reservas }     from '../pages'
 import { Emprestimos }  from '../pages'
@@ -34,11 +34,10 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/Status_emprestimos" element={ <Status_emprestimos  /> } />
             <Route  path="/Multas"      element={ <Multas       /> } />
             <Route  path="/Pagamentos"  element={ <Pagamentos   /> } />
-            <Route  path="/Template"    element={ <Template     /> } />
+            {/*<Route  path="/Template"    element={ <Template     /> } /> */}
 
             <Route  path="/Status_emprestimos" 
                     element={ <Status_emprestimos  /> } />
-            <Route  path="/Template"    element={ <Template     /> } /> 
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>
     </BrowserRouter>

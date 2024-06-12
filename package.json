@@ -16,6 +16,8 @@
     "@mui/material": "^5.15.19",
     "@mui/x-data-grid": "^7.6.2",
     "axios": "^1.7.2",
+    "base-64": "^1.0.0",
+    "buffer": "^6.0.3",
     "cors": "^2.8.5",
     "image-to-base64": "^2.2.0",
     "react": "^18.2.0",
@@ -25,6 +27,7 @@
     "routes": "^2.1.0"
   },
   "devDependencies": {
+    "@types/base-64": "^1.0.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

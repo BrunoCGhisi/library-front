@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import { BooksVO }             from "../../services/types";
 import axios                   from "axios";
 
-//https://web.dev/articles/base64-encoding#:~:text=The%20core%20functions%20to%20base64,and%20atob()%20decodes%20back.
-// error https://stackoverflow.com/questions/56952405/how-to-decode-encode-string-to-base64-in-typescript-express-server
-// flask https://stackoverflow.com/questions/67165636/decoding-base64-encoded-image-in-flask
-
 
 const Livros = () =>{
 
@@ -16,7 +12,8 @@ const Livros = () =>{
   const [ano, setAno]                       = useState("");
   const [disponiveis, setDisponiveis]         = useState("");
   const [estoque, setEstoque]               = useState("");
-  const [capa, setCapa]                     = useState("");
+  const [capa, setCapa] = useState<File | null | string>("");
+
 
  //   const [open, setOpen] = useState(false);
  //   const addOn = () => setOpen(true);
@@ -48,7 +45,7 @@ const Livros = () =>{
                 ano: ano,
                 disponiveis: disponiveis,
                 estoque: estoque,
-                capa: btoa(capa)
+                capa: capa
             });
             
             if (response.status === 200) alert("Adicionado com sucesso");
@@ -106,6 +103,24 @@ const Livros = () =>{
         getBooks();
     }, []);
 
+
+   function Convert(file: Blob){
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+
+            fileReader.onload = async () => {
+                const base64String = fileReader.result as string
+                setCapa(base64String)
+                resolve(base64String)
+            }
+
+            fileReader.onerror = error => {
+                reject(error)
+            }
+        })
+   }
+
 return(
     <div>
         <h1> Aqui estão os autores dos seus livros favoritos: </h1>
@@ -125,6 +140,7 @@ return(
 
                     <span> Id_livro {livro.id_livro}  </span>
                     <span> Nome    {livro.capa}     </span>
+                    <img src={capa} style={{width: 100, height: 100, objectFit: 'cover'}}></img>
                     <button onClick={ () => putBooks(livro.id_livro)}> Alterar livro </button>
                     <button onClick={ () => delBooks(livro.id_livro)}> Deletar livro </button>
                 </div>
@@ -178,9 +194,10 @@ return(
           type="file"
           id  ="capa"
           placeholder='capa'
-          value ={capa}
-          onChange ={(e) => setCapa(e.target.value)}
+          onChange ={(e) => Convert(e.target.files[0])}
         />
+        
+        
 
         <input 
           type="text"
