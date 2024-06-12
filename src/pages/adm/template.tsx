@@ -182,9 +182,10 @@ const Template = () => {
             </AccordionActions>
           </Accordion>
         </Box>
-
+        
         <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Autocomplete
+          
+          <Autocomplete       //Autocomplete de pesquisa
             disablePortal
             id="combo-box-demo"
             options={categories.map((category) => category.categoria)}
@@ -204,15 +205,13 @@ const Template = () => {
             Adicionar
           </Button>
           
-          <Modal //Modal ADICIONAR
+          <Modal        //Modal ADICIONAR
             open={adopen}
             onClose={addOf}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={ModalStyle}
-            key={categoria.id_categoria}
-            >
+            <Box sx={ModalStyle}>
               
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 Nova categoria
@@ -259,7 +258,7 @@ const Template = () => {
                   onChange={(e) => setCategoria(e.target.value)}
                 />
                 <Button
-                  onClick={() => putCategory(categoria.id_categoria) }
+                  onClick={postCategory}
                   variant="outlined"
                   startIcon={<DoneIcon />}
                 >
