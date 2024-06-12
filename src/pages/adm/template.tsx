@@ -149,52 +149,53 @@
      categoria: categoria.categoria,
    }));
 
-   return (
-     <Box>
-       <MiniDrawer />
-       <Box
-         sx={{
-           display: "flex",
-           flexDirection: "column",
-           marginLeft: 35,
-           marginTop: 15,
-           gap: 5,
-         }}
-       >
-         <Box sx={{ display: "flex", flexDirection: "row" }}>
-           <Accordion>
-             <AccordionSummary
-               expandIcon={<ExpandMoreIcon />}
-               aria-controls="panel1-content"
-               id="panel1-header"
-             >
-               Categorias?
-             </AccordionSummary>
-             <AccordionDetails>
-               Olá! <br />
-               Explicando suas categorias <br />
-               <strong> Id:</strong> Se trata do <strong> código </strong> que
-               cada categoria tem, assim como um <strong> CPF! </strong> <br />
-               <strong>Categoria:</strong> Se trata do <strong>tipo</strong> de
-               categoria. <strong>Romance, ficção</strong> <br />
-             </AccordionDetails>
-             <AccordionActions>
-               <Button>Ok, entendido!</Button>
-             </AccordionActions>
-           </Accordion>
-         </Box>
-
-         <Box sx={{ display: "flex", flexDirection: "row" }}>
-           <Autocomplete
-             disablePortal
-             id="combo-box-demo"
-             options={categories.map((category) => category.categoria)}
-             sx={{ width: 300 }}
-             renderInput={(params) => (
-               <TextField {...params} label="Categoria" />
-             )}
-           />
-         </Box>
+  return (
+    <Box>
+      <MiniDrawer />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: 35,
+          marginTop: 10,
+          gap: 5,
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              Categorias?
+            </AccordionSummary>
+            <AccordionDetails>
+              Olá! <br />
+              Explicando suas categorias <br />
+              <strong> Id:</strong> Se trata do <strong> código </strong> que
+              cada categoria tem, assim como um <strong> CPF! </strong> <br />
+              <strong>Categoria:</strong> Se trata do <strong>tipo</strong> de
+              categoria. <strong>Romance, ficção</strong> <br />
+            </AccordionDetails>
+            <AccordionActions>
+              <Button>Ok, entendido!</Button>
+            </AccordionActions>
+          </Accordion>
+        </Box>
+        
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          
+          <Autocomplete       //Autocomplete de pesquisa
+            disablePortal
+            id="combo-box-demo"
+            options={categories.map((category) => category.categoria)}
+            sx={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Categoria" />
+            )}
+          />
+        </Box>
 
          <Stack direction="row" spacing={2}>
            <Button
@@ -205,15 +206,13 @@
              Adicionar
            </Button>
           
-           <Modal //Modal ADICIONAR
-             open={adopen}
-             onClose={addOf}
-             aria-labelledby="modal-modal-title"
-             aria-describedby="modal-modal-description"
-           >
-             <Box sx={ModalStyle}
-             key={categoria.id_categoria}
-             >
+          <Modal        //Modal ADICIONAR
+            open={adopen}
+            onClose={addOf}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={ModalStyle}>
               
                <Typography id="modal-modal-title" variant="h6" component="h2">
                  Nova categoria
@@ -250,25 +249,25 @@
                  Editar categoria
                </Typography>
 
-               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                 <TextField //Prencher Categoria
-                   id="outlined-helperText"
-                   label="Categoria"
-                   defaultValue=""
-                   helperText="Obrigatório"
-                   value={categoria}
-                   onChange={(e) => setCategoria(e.target.value)}
-                 />
-                 <Button
-                   onClick={() => putCategory(categoria.id_categoria) }
-                   variant="outlined"
-                   startIcon={<DoneIcon />}
-                 >
-                   Alterar
-                 </Button>
-               </Typography>
-             </Box>
-           </Modal>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <TextField //Prencher Categoria
+                  id="outlined-helperText"
+                  label="Categoria"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                />
+                <Button
+                  onClick={postCategory}
+                  variant="outlined"
+                  startIcon={<DoneIcon />}
+                >
+                  Alterar
+                </Button>
+              </Typography>
+            </Box>
+          </Modal>
 
            <Button variant="outlined" startIcon={<SearchIcon />}>
              Pesquisar
