@@ -43,12 +43,19 @@ const Template = () => {
   const [categories, setCategories] = useState<CategoryVO[]>([]);
   //UseStates relacionados ao post
   const [categoria, setCategoria] = useState("");
-  //Const Alerts
-  const [openPAlert, setOpenPAlert] = useState<boolean | undefined>(undefined);
 
-  const [open, setOpen] = React.useState(false);
-  const addOn = () => setOpen(true);
-  const addOf = () => setOpen(false);
+  //Const Alerts
+  //const [openPAlert, setOpenPAlert] = useState<boolean | undefined>(undefined);
+
+  //Modal ADD
+  const [adopen, setAdOpen] = React.useState(false);
+  const addOn = () => setAdOpen(true);
+  const addOf = () => setAdOpen(false);
+
+  //Modal Put
+  const [popen, setPOpen] = React.useState(false);
+  const putOn = () => setPOpen(true);
+  const putOf = () => setPOpen(false);
 
   //Função assincrona findCategories que cria a variável response que complementa o GetCategories
   async function findCategories() {
@@ -68,10 +75,10 @@ const Template = () => {
         categoria: categoria,
       });
       if (response.status === 200) alert("usuário criado com sucesso!");
-      setOpenPAlert(true);
+      //setOpenPAlert(true);
       findCategories();
     } catch (error: any) {
-      setOpenPAlert(false);
+      //setOpenPAlert(false);
       new Error(error);
     }
   }
@@ -128,7 +135,7 @@ const Template = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={addOn}>
+          <IconButton onClick={putOn}>
             <EditIcon />
           </IconButton>
         </div>
@@ -197,13 +204,17 @@ const Template = () => {
           >
             Adicionar
           </Button>
-          <Modal
-            open={open}
+          
+          <Modal //Modal ADICIONAR
+            open={adopen}
             onClose={addOf}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={ModalStyle}>
+            <Box sx={ModalStyle}
+            key={categoria.id_categoria}
+            >
+              
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 Nova categoria
               </Typography>
@@ -222,11 +233,43 @@ const Template = () => {
                   variant="outlined"
                   startIcon={<DoneIcon />}
                 >
-                  Finalizar
+                  Cadastrar
                 </Button>
               </Typography>
             </Box>
           </Modal>
+
+          <Modal //Modal EDITAR
+            open={popen}
+            onClose={putOf}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={ModalStyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Editar categoria
+              </Typography>
+
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <TextField //Prencher Categoria
+                  id="outlined-helperText"
+                  label="Categoria"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                />
+                <Button
+                  onClick={() => putCategory(categoria.id_categoria) }
+                  variant="outlined"
+                  startIcon={<DoneIcon />}
+                >
+                  Alterar
+                </Button>
+              </Typography>
+            </Box>
+          </Modal>
+
           <Button variant="outlined" startIcon={<SearchIcon />}>
             Pesquisar
           </Button>
@@ -260,16 +303,4 @@ const Template = () => {
 
 export default Template;
 
-/* botoes delete e alterar
-  <Stack direction="row" spacing={2}>
-    <Button variant="outlined" startIcon={<DeleteIcon />}>
-      Deletar
-    </Button>
-    <Button variant="outlined" startIcon={<EditIcon />}>
-      Editar
-    </Button>
-  </Stack>
 
-
-  
-*/
