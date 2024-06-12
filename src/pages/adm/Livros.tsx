@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { BooksVO }             from "../../services/types";
 import axios                   from "axios";
 
+//https://web.dev/articles/base64-encoding#:~:text=The%20core%20functions%20to%20base64,and%20atob()%20decodes%20back.
+// error https://stackoverflow.com/questions/56952405/how-to-decode-encode-string-to-base64-in-typescript-express-server
+// flask https://stackoverflow.com/questions/67165636/decoding-base64-encoded-image-in-flask
+
+
 const Livros = () =>{
 
   const [books, setBooks]       = useState<BooksVO[]>() 
@@ -13,9 +18,9 @@ const Livros = () =>{
   const [estoque, setEstoque]               = useState("");
   const [capa, setCapa]                     = useState("");
 
-    const [open, setOpen] = useState(false);
-    const addOn = () => setOpen(true);
-    const addOf = () => setOpen(false);
+ //   const [open, setOpen] = useState(false);
+ //   const addOn = () => setOpen(true);
+ //   const addOf = () => setOpen(false);
  
 //------------------------------------------------------------------
     async function getBooks() {
@@ -43,7 +48,7 @@ const Livros = () =>{
                 ano: ano,
                 disponiveis: disponiveis,
                 estoque: estoque,
-                capa: capa
+                capa: btoa(capa)
             });
             
             if (response.status === 200) alert("Adicionado com sucesso");
@@ -119,7 +124,7 @@ return(
                     }}> 
 
                     <span> Id_livro {livro.id_livro}  </span>
-                    <span> Nome    {livro.titulo}     </span>
+                    <span> Nome    {livro.capa}     </span>
                     <button onClick={ () => putBooks(livro.id_livro)}> Alterar livro </button>
                     <button onClick={ () => delBooks(livro.id_livro)}> Deletar livro </button>
                 </div>
@@ -170,7 +175,7 @@ return(
         />
 
         <input 
-          type="text"
+          type="file"
           id  ="capa"
           placeholder='capa'
           value ={capa}
