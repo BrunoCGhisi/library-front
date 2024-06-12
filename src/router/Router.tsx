@@ -34,9 +34,9 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/Status_emprestimos" element={ <Status_emprestimos  /> } />
             <Route  path="/Multas"      element={ <Multas       /> } />
             <Route  path="/Pagamentos"  element={ <Pagamentos   /> } />
+            <Route  path="/Template"    element={ <Template     /> } /> 
             <Route  path="/Status_emprestimos" 
                     element={ <Status_emprestimos  /> } />
-            <Route  path="/Template"    element={ <Template     /> } /> 
             <Route  path="*"            element={ <NoPage       /> } />
         </Routes>
     </BrowserRouter>
