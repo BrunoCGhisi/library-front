@@ -121,14 +121,12 @@ const Template = () => {
     {
       field: "categoria",
       headerName: "Categoria",
-      
       editable: false,
       flex: 0
     },
     {
       field: "acoes",
       headerName: "Ações",
-      
       editable: false,
       align:'center',
       type: 'actions',

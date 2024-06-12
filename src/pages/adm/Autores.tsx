@@ -1,41 +1,40 @@
-import { useState, useEffect } from "react";
-import { AuthorsVO } from "../../services/types";
-import { getCategories } from "../../services/CategoryService";
-import { MiniDrawer } from "./components";
+  import { useState, useEffect } from "react";
+  import { AuthorsVO } from "../../services/types";
+  import { MiniDrawer } from "./components";
 
-import axios from "axios";
-import * as React from "react";
-//Material UI
+  import axios from "axios";
+  import * as React from "react";
+  //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+  import Box from "@mui/material/Box";
+  import TextField from "@mui/material/TextField";
 
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
+  import Button from "@mui/material/Button";
+  import IconButton from "@mui/material/IconButton";
+  import Stack from "@mui/material/Stack";
+  import Accordion from "@mui/material/Accordion";
+  import AccordionActions from "@mui/material/AccordionActions";
+  import AccordionSummary from "@mui/material/AccordionSummary";
+  import AccordionDetails from "@mui/material/AccordionDetails";
+  import Modal from "@mui/material/Modal";
 
-//Relacionados ao Grid
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
+  //Relacionados ao Grid
+  import { DataGrid, GridColDef } from "@mui/x-data-grid";
+  import Typography from "@mui/material/Typography";
 
-//Icones
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import DoneIcon from "@mui/icons-material/Done";
+  //Icones
+  import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+  import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+  import SearchIcon from "@mui/icons-material/Search";
+  import DeleteIcon from "@mui/icons-material/Delete";
+  import EditIcon from "@mui/icons-material/Edit";
+  import DoneIcon from "@mui/icons-material/Done";
 
-//Estilos
+  //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
-const Autores = () => {
+  import { ModalStyle } from "./styles";
+  import { GridStyle } from "./styles";
+  const Autores = () => {
 
   //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
   const [authors, setAuthors]   = useState<AuthorsVO[]>([]);
@@ -110,18 +109,21 @@ const Autores = () => {
 //------------------------------------------------------
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID",align:'left', type: 'string', flex: 0 },
     {
       field: "nome",
       headerName: "Nome",
-      width: 150,
       editable: false,
+      flex: 0
     },
     {
       field: "acoes",
       headerName: "Ações",
       width: 150,
       editable: false,
+      align:'center',
+      type: 'actions',
+      flex: 0,
       renderCell: ({ row }) => (
         <div>
           <IconButton onClick={() => delAuthors(row.id)}>
@@ -227,7 +229,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                    <TextField //Prencher Categoria
                      id="outlined-helperText"
-                     label="Categoria"
+                     label="Nome"
                      defaultValue=""
                      helperText="Obrigatório"
                      value={nome}
@@ -258,7 +260,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <TextField //Prencher Autor
                     id="outlined-helperText"
-                    label="Categoria"
+                    label="Nome"
                     defaultValue=""
                     helperText="Obrigatório"
                     value={nome}
