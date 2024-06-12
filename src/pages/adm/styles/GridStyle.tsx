@@ -1,6 +1,6 @@
-const Piroka = {
+const GridStyle = {
     height: 300, 
-    width: '80%'
+    width: '70%'
 };
 
-export default Piroka
+export default GridStyle

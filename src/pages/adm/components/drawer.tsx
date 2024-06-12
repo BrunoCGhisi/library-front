@@ -137,7 +137,7 @@ const MiniDrawer = () => {
             
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Lista de Categorias
+            Administração Library
           </Typography>
         </Toolbar>
       </AppBar>

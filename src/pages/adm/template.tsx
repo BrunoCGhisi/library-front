@@ -53,9 +53,11 @@
    const addOf = () => setAdOpen(false);
 
    //Modal Put
-   const [popen, setPOpen] = React.useState(false);
+   const [put, setPut]      = React.useState("")
+   const [popen, setPOpen]  = React.useState(false);
    const putOn = () => setPOpen(true);
    const putOf = () => setPOpen(false);
+
 
    //Função assincrona findCategories que cria a variável response que complementa o GetCategories
    async function findCategories() {
@@ -206,7 +208,30 @@
              Adicionar
            </Button>
           
-          <Modal        //Modal ADICIONAR
+         
+
+           <Button variant="outlined" startIcon={<SearchIcon />}>
+             Pesquisar
+           </Button>
+         </Stack>
+         <Box sx={GridStyle}>
+           <DataGrid
+             rows={rows}
+             columns={columns}
+             initialState={{
+               pagination: {
+                 paginationModel: {
+                   pageSize: 5,
+                 },
+               },
+             }}
+             pageSizeOptions={[6]}
+             checkboxSelection
+             disableRowSelectionOnClick
+           />
+         </Box>
+
+         <Modal        //Modal ADICIONAR
             open={adopen}
             onClose={addOf}
             aria-labelledby="modal-modal-title"
@@ -268,27 +293,6 @@
               </Typography>
             </Box>
           </Modal>
-
-           <Button variant="outlined" startIcon={<SearchIcon />}>
-             Pesquisar
-           </Button>
-         </Stack>
-         <Box sx={GridStyle}>
-           <DataGrid
-             rows={rows}
-             columns={columns}
-             initialState={{
-               pagination: {
-                 paginationModel: {
-                   pageSize: 5,
-                 },
-               },
-             }}
-             pageSizeOptions={[5]}
-             checkboxSelection
-             disableRowSelectionOnClick
-           />
-         </Box>
 
          {/* nós tentamos. ):
              openPAlert   
