@@ -22,7 +22,7 @@ import { Pagamentos }   from '../pages'
 const Router = () => (   //constante Router é igual a uma função vazia que vai executar a pesquisa rotas e paginas
     <BrowserRouter>     
         <Routes> 
-{/*             <Route  index               element={ <Template     /> } /> */}
+            <Route  index               element={ <Template     /> } /> 
             <Route  path="/home"        element={ <Home         /> } />
             <Route  path="/historico"   element={ <Historico    /> } />
             <Route  path="/Categorias"  element={ <Categorias   /> } />
@@ -34,8 +34,6 @@ const Router = () => (   //constante Router é igual a uma função vazia que va
             <Route  path="/Status_emprestimos" element={ <Status_emprestimos  /> } />
             <Route  path="/Multas"      element={ <Multas       /> } />
             <Route  path="/Pagamentos"  element={ <Pagamentos   /> } />
-            <Route  path="/Template"    element={ <Template     /> } />
-
             <Route  path="/Status_emprestimos" 
                     element={ <Status_emprestimos  /> } />
             <Route  path="/Template"    element={ <Template     /> } /> 

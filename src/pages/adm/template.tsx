@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { CategoryVO } from "../../services/types";
 import { getCategories } from "../../services/CategoryService";
 import { MiniDrawer } from "./components";
-import { DrawerHeader } from "./components";
 import axios from "axios";
 
 import * as React from "react";
@@ -157,7 +156,7 @@ const Template = () => {
           display: "flex",
           flexDirection: "column",
           marginLeft: 35,
-          marginTop: 15,
+          marginTop: 10,
           gap: 5,
         }}
       >
