@@ -1,28 +1,27 @@
 import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import Alert    from '@mui/material/Alert';
 
-export function PAlertTrue() {
-    <Snackbar autoHideDuration={6000} >
+interface PAlertProps {
+  open: boolean
+  isError: boolean
+  text: string
+}
+
+const PAlert = ({open, isError, text}:PAlertProps) => {
+  return (
+    <Snackbar open={open}  autoHideDuration={3000} >
         <Alert
-          severity="success"
+          severity = {isError ? "success" : "error"}
           variant="filled"
           sx={{ width: '100%' }}
         >
-          This is a success Alert inside a Snackbar!
+          {text}
         </Alert>
-      </Snackbar>
+    </Snackbar>
+  )
 }
 
+export default PAlert
 
 
-export function PAlertFalse() {
-    <Snackbar autoHideDuration={6000} >
-        <Alert
-          severity="error"
-          variant="filled"
-          sx={{ width: '100%' }}
-        >
-          This is a Error Alert inside a Snackbar!
-        </Alert>
-      </Snackbar>
-}
+

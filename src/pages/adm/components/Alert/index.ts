@@ -1,1 +1,1 @@
-export { PAlertTrue, PAlertFalse} from './PAlert'
+export { default as PAlert} from './PAlert'
