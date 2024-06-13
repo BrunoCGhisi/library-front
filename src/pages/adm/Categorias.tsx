@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { CategoryVO } from "../../services/types";
 import { getCategories } from "../../services/CategoryService";
-import { MiniDrawer } from "./components";
+
 
 import axios from "axios";
 import * as React from "react";
+
+import { MiniDrawer } from "./components";
 //Material UI
 
 import Box from "@mui/material/Box";
