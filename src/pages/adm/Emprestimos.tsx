@@ -19,6 +19,7 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Modal from "@mui/material/Modal";
+import Divider from '@mui/material/Divider';
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -145,7 +146,7 @@ const Emprestimos = () => {
       flex: 0,
     },
     {
-      field: "status",
+      field: "fk_status",
       headerName: "Status",
       editable: false,
       flex: 0,
@@ -205,22 +206,30 @@ const Emprestimos = () => {
             <AccordionDetails>
               Olá! <br />
               Explicando os empréstimos <br />
+              <Divider />
               <strong> Id:</strong> Se trata do <strong> código único </strong>{" "}
               que cada empréstimo tem, assim como um <strong> CPF! </strong>{" "}
               <br />
+              <Divider />
               <strong>Id-Livro:</strong> Se trata do{" "}
               <strong>id do livro</strong> no qual o empréstimo foi feito.{" "}
-              <strong>1 = 1984 </strong> <br />
+              <strong><br />exemplo: 1 = 1984 </strong> <br />
+              <Divider />
               <strong>Id-Membro:</strong> Se trata do{" "}
-              <strong>id do membro</strong> no qual o empréstimo foi feito.{" "}
-              <strong>1 = Belone </strong> <br />
-              <strong>data-entrada:</strong> Se trata da <strong>data</strong>{" "}
+              <strong>Id do membro</strong> no qual o empréstimo foi feito.{" "}
+              <strong><br />exemplo: 1 = Belone </strong> <br />
+              <Divider />
+              <strong>Data-entrada:</strong> Se trata da <strong>data</strong>{" "}
               no qual o empréstimo foi feito. <br />
-              <strong>data-retorno:</strong> Se trata da <strong>data</strong>{" "}
-              no qual o o livro foi retornado <br />
-              <strong>status:</strong> Se trata do <strong>status</strong> no
-              qual o empréstimo está.{" "}
-              <strong> 0 = Não retornado - 1 = Retornado </strong> <br />
+              <Divider />
+              <strong>Data-retorno:</strong> Se trata da <strong>data</strong>{" "}
+              no qual o  livro foi retornado <br />
+              <Divider />
+              <strong>Status:</strong> Se trata do <strong>status</strong> no
+              qual o empréstimo está.{" "}<br />
+              <strong> 1 = Emprestado <br />
+                2 = Retornado <br />
+                3 = Atrasado </strong> <br />
             </AccordionDetails>
             <AccordionActions>
               <Button>Ok, entendido!</Button>
@@ -311,8 +320,9 @@ const Emprestimos = () => {
                 label="Status"
                 onChange={(e) => setFk_status(e.target.value)}
               >
-                <MenuItem value={0}>Não retornado</MenuItem>
-                <MenuItem value={1}>Retornado </MenuItem>
+                <MenuItem value={1}>Emprestado</MenuItem>
+                <MenuItem value={2}>Retornado </MenuItem>
+                <MenuItem value={3}>Atrasado  </MenuItem>
               </Select>
               <Button
                 onClick={postLoan}
@@ -393,7 +403,7 @@ const Emprestimos = () => {
       </Box>
     </Box>
   );
-};
+}
 
 export default Emprestimos;
 
@@ -472,4 +482,4 @@ export default Emprestimos;
 
 // )
 
-// }
+// 

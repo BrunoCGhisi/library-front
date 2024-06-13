@@ -20,6 +20,7 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Modal from "@mui/material/Modal";
+import Divider from '@mui/material/Divider';
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -179,6 +180,7 @@ const Template = () => {
              Explicando suas categorias <br />
              <strong> Id:</strong> Se trata do <strong> código </strong> que
              cada categoria tem, assim como um <strong> CPF! </strong> <br />
+             <Divider />
              <strong>Categoria:</strong> Se trata do <strong>tipo</strong> de
              categoria. <strong>Romance, ficção</strong> <br />
            </AccordionDetails>

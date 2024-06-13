@@ -1,6 +1,44 @@
-import { useState, useEffect }  from 'react'
+import React, { useState, useEffect } from 'react';
 import { FinesVO }              from '../../services/types'
 import  axios                   from 'axios';
+
+
+
+import { MiniDrawer } from "./components";
+//Material UI
+
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Modal from "@mui/material/Modal";
+import Divider from '@mui/material/Divider';
+
+//Relacionados ao Grid
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Typography from "@mui/material/Typography";
+
+//Icones
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import SearchIcon from "@mui/icons-material/Search";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import DoneIcon from "@mui/icons-material/Done";
+
+//Estilos
+
+import { ModalStyle } from "./styles";
+import { GridStyle } from "./styles";
+
 
 const Multas = () => {
 
