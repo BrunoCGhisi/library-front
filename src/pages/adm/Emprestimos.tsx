@@ -39,6 +39,7 @@ import { ModalStyle } from "./styles";
 import { GridStyle } from "./styles";
 
 const Emprestimos = () => {
+
   const [loans, setLoans] = useState<LoanVO[]>([]);
   const [fk_livro, setFk_livro] = useState("");
   const [fk_membro, setFk_membro] = useState("");
@@ -171,6 +172,8 @@ const Emprestimos = () => {
       ),
     },
   ];
+
+
 
   //Mapeando cada item da lista, e o valor de cada item é dado como categoria
   const rows = loans.map((emprestimo) => ({

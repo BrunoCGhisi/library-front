@@ -16,7 +16,6 @@ const Livros = () => {
     try {
       const response = await axios.get('http://localhost:3000/livro');
       setBooks(response.data.livros);
-      console.log(response.data.livros.map((livro) => livro.capa))
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
     }
