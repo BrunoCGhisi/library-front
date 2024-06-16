@@ -43,8 +43,8 @@ const Reservas = () => {
   const [fk_membro, setFk_membro] = useState("");
   const [data_reserva, setData_reserva] = useState("");
   const [data_retirada, setData_retirada] = useState("");
-  const [status_reserva, setStatus_reserva] = useState(1); //estava 1
-  const [status_retirada, setStatus_retirada] = useState(0); //estava 0
+  const [status_reserva, setStatus_reserva] = useState("1"); //estava 1
+  const [status_retirada, setStatus_retirada] = useState("0"); //estava 0
 
   //Modal ADD
   const [adopen, setAdOpen] = React.useState(false);
@@ -182,8 +182,8 @@ const Reservas = () => {
   //Mapeando cada item da lista, e o valor de cada item é dado como categoria
   const rows = reserves.map((reserva) => ({
     id: reserva.id_reserva,
-    id_livro: reserva.fk_livro,
-    id_membro: reserva.fk_membro,
+    fk_livro: reserva.fk_livro,
+    fk_membro: reserva.fk_membro,
     data_reserva: reserva.data_reserva,
     data_retirada: reserva.data_retirada,
     status_reserva: reserva.status_reserva,
@@ -209,7 +209,7 @@ const Reservas = () => {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              Pagamentos
+              Reservas
             </AccordionSummary>
             <AccordionDetails>
               Olá! <br />
@@ -315,7 +315,7 @@ const Reservas = () => {
                 id="demo-simple-select"
                 value={status_reserva}
                 label="Status"
-                onChange={(e) => setStatus_reserva(Number(e.target.value))}
+                onChange={(e) => setStatus_reserva(e.target.value)}
               >
                 <MenuItem value={0}>Não reservado </MenuItem>
                 <MenuItem value={1}>Reservado </MenuItem>
@@ -326,7 +326,7 @@ const Reservas = () => {
                 id="demo-simple-select"
                 value={status_retirada}
                 label="Status"
-                onChange={(e) => setStatus_retirada(Number(e.target.value))}
+                onChange={(e) => setStatus_retirada(e.target.value)}
               >
                 <MenuItem value={0}>Não retirado</MenuItem>
                 <MenuItem value={1}>Retirado </MenuItem>
@@ -392,7 +392,7 @@ const Reservas = () => {
                 id="demo-simple-select"
                 value={status_reserva}
                 label="Status"
-                onChange={(e) => setStatus_reserva(Number(e.target.value))}
+                onChange={(e) => setStatus_reserva(e.target.value)}
               >
                 <MenuItem value={0}>Não reservado </MenuItem>
                 <MenuItem value={1}>Reservado </MenuItem>
@@ -403,7 +403,7 @@ const Reservas = () => {
                 id="demo-simple-select"
                 value={status_retirada}
                 label="Status"
-                onChange={(e) => setStatus_retirada(Number(e.target.value))}
+                onChange={(e) => setStatus_retirada(e.target.value)}
               >
                 <MenuItem value={0}>Não retirado</MenuItem>
                 <MenuItem value={1}>Retirado </MenuItem>
