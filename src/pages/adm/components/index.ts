@@ -1,3 +1,3 @@
-export { default as MiniDrawer }    from './Drawer'
+export { default as MiniDrawer } from './Drawer'
 
 export * from './Alert'

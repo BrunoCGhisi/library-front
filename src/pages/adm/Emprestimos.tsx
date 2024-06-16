@@ -9,7 +9,7 @@ import { MiniDrawer } from "./components";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -52,7 +52,6 @@ const Emprestimos = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
   const putOn = () => setPOpen(true);
   const putOf = () => setPOpen(false);

@@ -9,9 +9,6 @@ import { MiniDrawer } from "./components";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -39,6 +36,7 @@ import BookIcon from '@mui/icons-material/Book';
 
 import { ModalStyle } from "./styles";
 import { GridStyle } from "./styles";
+import styled from "@emotion/styled";
 
 const Livros = () => {
   const [books, setBooks] = useState<BooksVO[]>([]);
@@ -56,7 +54,6 @@ const Livros = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
   const putOn = () => setPOpen(true);
   const putOf = () => setPOpen(false);
@@ -125,21 +122,23 @@ const Livros = () => {
     getBooks();
   }, []);
 
-  function Convert(file: Blob) {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+  function Convert(file?: Blob) {
+      if (file) {
+          return new Promise((resolve, reject) => {
+              const fileReader = new FileReader();
+              fileReader.readAsDataURL(file);
 
-      fileReader.onload = async () => {
-        const base64String = fileReader.result as string;
-        setCapa(base64String);
-        resolve(base64String);
-      };
+              fileReader.onload = async () => {
+                  const base64String = fileReader.result as string;
+                  setCapa(base64String);
+                  resolve(base64String);
+              };
 
-      fileReader.onerror = error => {
-        reject(error);
-      };
-    });
+              fileReader.onerror = error => {
+                  reject(error);
+              };
+          });
+      }
   }
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -152,18 +151,18 @@ const Livros = () => {
     whiteSpace: 'nowrap',
     width: 1,
   });
-  
+
   const columns: GridColDef<(typeof rows)[number]>[] = [
     { field: "id", headerName: "ID", align: "left", type: "string", flex: 0 },
     {
       field: "fk_autor",
-      headerName: "Id-autor",
+      headerName: "ID Autor",
       editable: false,
       flex: 0,
     },
     {
       field: "fk_categoria",
-      headerName: "Id-categoria",
+      headerName: "ID Categoria",
       editable: false,
       flex: 0,
     },
@@ -188,12 +187,6 @@ const Livros = () => {
     {
       field: "estoque",
       headerName: "Estoque",
-      editable: false,
-      flex: 0,
-    },
-    {
-      field: "capa",
-      headerName: "Capa",
       editable: false,
       flex: 0,
     },
@@ -339,77 +332,83 @@ const Livros = () => {
               Novo livro
             </Typography>
 
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Typography id="modal-modal-description" sx={{mt: 2}}>
               <TextField //Prencher nome
-                id="outlined-helperText"
-                label="Id-autor"
-                defaultValue=""
-                helperText="Obrigatório"
-                value={fk_autor}
-                onChange={(e) => setFk_autor(e.target.value)}
+                  id="outlined-helperText"
+                  label="Id-autor"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={fk_autor}
+                  onChange={(e) => setFk_autor(e.target.value)}
               />
               <TextField //Prencher Categoria
-                id="outlined-helperText"
-                label="Id-categoria"
-                defaultValue=""
-                helperText="Obrigatório"
-                value={fk_categoria}
-                onChange={(e) => setFk_categoria(e.target.value)}
+                  id="outlined-helperText"
+                  label="Id-categoria"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={fk_categoria}
+                  onChange={(e) => setFk_categoria(e.target.value)}
               />
               <TextField //Prencher Categoria
-                id="outlined-helperText"
-                label="Titulo"
-                defaultValue=""
-                helperText="Obrigatório"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
+                  id="outlined-helperText"
+                  label="Titulo"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
               />
               <TextField //Prencher Categoria
-                id="outlined-helperText"
-                label="Ano"
-                defaultValue=""
-                helperText="Obrigatório"
-                value={ano}
-                onChange={(e) => setAno(e.target.value)}
+                  id="outlined-helperText"
+                  label="Ano"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={ano}
+                  onChange={(e) => setAno(e.target.value)}
               />
               <TextField //Prencher Categoria
-                id="outlined-helperText"
-                label="Disponíveis"
-                defaultValue=""
-                helperText="Obrigatório"
-                value={disponiveis}
-                onChange={(e) => setDisponiveis(e.target.value)}
+                  id="outlined-helperText"
+                  label="Disponíveis"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={disponiveis}
+                  onChange={(e) => setDisponiveis(e.target.value)}
               />
               <TextField //Prencher Categoria
-                id="outlined-helperText"
-                label="Estoque"
-                defaultValue=""
-                helperText="Obrigatório"
-                value={estoque}
-                onChange={(e) => setEstoque(e.target.value)}
+                  id="outlined-helperText"
+                  label="Estoque"
+                  defaultValue=""
+                  helperText="Obrigatório"
+                  value={estoque}
+                  onChange={(e) => setEstoque(e.target.value)}
               />
-              <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<BookIcon />}
-              >
-                Upload file
-                <VisuallyHiddenInput type="file" />
-              </Button>
-              <Button
+              <input
+                  type="file"
+                  id="capa"
+                  placeholder='capa'
+                  onChange={(e) => Convert(e.target.files?.[0])}
+              />
+                  <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<BookIcon />}
+                      >
+                  Upload file
+              <VisuallyHiddenInput type="file" />
+            </Button>
+            <Button
                 onClick={postBooks}
                 variant="outlined"
-                startIcon={<DoneIcon />}
-              >
-                Cadastrar
-              </Button>
-            </Typography>
-          </Box>
-        </Modal>
+                startIcon={<DoneIcon/>}
+            >
+              Cadastrar
+            </Button>
+          </Typography>
+      </Box>
+    </Modal>
 
-        <Modal //Modal EDITAR
+{/*<Modal //Modal EDITAR
           open={popen}
           onClose={putOf}
           aria-labelledby="modal-modal-title"
@@ -500,7 +499,7 @@ const Livros = () => {
               </Button>
             </Typography>
           </Box>
-        </Modal>
+        </Modal>*/}
       </Box>
     </Box>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { CategoryVO } from "../../services/types";
-import { getCategories } from "../../services/CategoryService";
+import { getCategories } from "../../services";
 import { MiniDrawer } from "./components";
 
 import axios from "axios";
@@ -8,12 +8,11 @@ import axios from "axios";
 import * as React from "react";
 
 //Material UI
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton"
 import Stack from "@mui/material/Stack";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";

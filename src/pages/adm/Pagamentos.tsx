@@ -8,9 +8,6 @@ import { MiniDrawer } from "./components";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -28,7 +25,6 @@ import Typography from "@mui/material/Typography";
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
@@ -51,7 +47,6 @@ const Pagamentos = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
   const putOn = () => setPOpen(true);
   const putOf = () => setPOpen(false);
@@ -69,10 +64,10 @@ const Pagamentos = () => {
   async function postPayments() {
     try {
       const response = await axios.post("http://localhost:3000/pagamento", {
-        fk_membro: fk_membro,
-        fk_multa: fk_multa,
-        data_pagamento: data_pagamento,
-        valor: valor,
+        fk_membro,
+        fk_multa,
+        data_pagamento,
+        valor,
       });
       getPayments();
       if (response.status === 200) alert("membro cadastro com sucesso!");

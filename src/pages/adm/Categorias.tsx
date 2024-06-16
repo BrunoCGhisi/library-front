@@ -1,48 +1,33 @@
-import { useState, useEffect } from "react";
-import { CategoryVO } from "../../services/types";
-import { getCategories } from "../../services/CategoryService";
+import * as React from "react";
+import {useEffect, useState} from "react";
+import {CategoryVO} from "../../services/types";
+import {getCategories} from "../../services";
 
 import axios from "axios";
-import * as React from "react";
 
-import { MiniDrawer } from "./components";
+import {MiniDrawer} from "./components";
 //Material UI
-
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {Accordion, AccordionActions, AccordionDetails, Box, Modal, AccordionSummary, Button, Divider, IconButton, Stack, TextField, Typography} from "@mui/material";
 
 //Relacionados ao Grid
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
+import {DataGrid, GridColDef} from "@mui/x-data-grid";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
-
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import {GridStyle, ModalStyle} from "./styles";
 
 const Template = () => {
   //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
   const [categories, setCategories] = useState<CategoryVO[]>([]);
   //UseStates relacionados ao post
   const [categoria, setCategoria] = useState("");
+  const [categoriaId, setCategoriaId] = useState("");
 
   //Const Alerts
   //const [openPAlert, setOpenPAlert] = useState<boolean | undefined>(undefined);
@@ -53,9 +38,12 @@ const Template = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (id: string, categoria: string) => {
+    setCategoria(categoria)
+    setCategoriaId(id)
+    setPOpen(true);
+  }
   const putOf = () => setPOpen(false);
 
   //Função assincrona findCategories que cria a variável response que complementa o GetCategories
@@ -81,25 +69,29 @@ const Template = () => {
     } catch (error: any) {
       //setOpenPAlert(false);
       new Error(error);
+    } finally {
+      addOf()
     }
   }
 
   //Criando uma função assincrona Put
-  async function putCategory(id: string) {
+  async function putCategory() {
     //Precisa de um argumento, nesse caso o ID para alterar a tabela X
     try {
       const response = await axios.put(
-        `http://localhost:3000/categoria?id=${id}`,
+        `http://localhost:3000/categoria?id=${categoriaId}`,
         {
           //Vai procurar pelo argumento
           categoria: categoria, //A unica informação além do Id_categoria dentro do Banco
         }
       );
-      console.log(response);
+      console.debug(response);
       if (response.status === 200) alert("usuário alterado com sucesso!"); //Se a alteração ocorrer, pop up,
       findCategories(); //refresh nas categorias
     } catch (error: any) {
       new Error(error);
+    } finally {
+      putOf()
     }
   }
   //Criando uma função assincrona Put
@@ -138,7 +130,7 @@ const Template = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton onClick={() => putOn(row.id, row.categoria)}>
             <EditIcon />
           </IconButton>
         </div>
@@ -195,10 +187,6 @@ const Template = () => {
             startIcon={<AddCircleOutlineIcon />}
           >
             Adicionar
-          </Button>
-
-          <Button variant="outlined" startIcon={<SearchIcon />}>
-            Pesquisar
           </Button>
         </Stack>
         <Box sx={GridStyle}>
@@ -271,7 +259,7 @@ const Template = () => {
                 onChange={(e) => setCategoria(e.target.value)}
               />
               <Button
-                onClick={postCategory}
+                onClick={putCategory}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
