@@ -9,7 +9,7 @@ const Reservas = () => {
   const [fk_membro, setFk_membro]             = useState("");
   const [data_reserva, setData_reserva]       = useState("");
   const [data_retirada, setData_retirada]     = useState("");
-  const [status_reserva, setStatus_reserva]   = useState(0);
+  const [status_reserva, setStatus_reserva]   = useState(1);
   const [status_retirada, setStatus_retirada] = useState(0);
 
     const [open, setOpen] = useState(false);
@@ -97,7 +97,7 @@ return(
                     }}> 
 
                     <span> Id_reserva {reserva.id_reserva}  </span>
-                    <span> Data    {reserva.data_reserva}     </span>
+                    <span> Data    {reserva.status_reserva}     </span>
                     <button onClick={ () => putReserve(reserva.id_reserva)}> Alterar reserva </button>
                     <button onClick={ () => delReserve(reserva.id_reserva)}> Deletar reserva </button>
                 </div>
