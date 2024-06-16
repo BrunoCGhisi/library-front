@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { FinesVO }              from '../../services/types'
-import  axios                   from 'axios';
-
-
+import React, { useState, useEffect } from "react";
+import { FinesVO } from "../../services/types";
+import axios from "axios";
 
 import { MiniDrawer } from "./components";
 //Material UI
@@ -20,7 +18,7 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Modal from "@mui/material/Modal";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -39,17 +37,15 @@ import DoneIcon from "@mui/icons-material/Done";
 import { ModalStyle } from "./styles";
 import { GridStyle } from "./styles";
 
-
 const Multas = () => {
+  const [fines, setFines] = useState<FinesVO[]>([]);
 
-  const [fines, setFines]    = useState<FinesVO[]>([]);
-
-  const [fk_emprestimo, setFk_emprestimo]   = useState("");
-  const [fk_membro, setFk_membro]           = useState("");
-  const [data_multa, setData_multa]         = useState("");
-  const [data_prazo, setData_prazo]         = useState("");
-  const [valor, setValor]                   = useState("");
-  const [status, setStatus]                 = useState("");
+  const [fk_emprestimo, setFk_emprestimo] = useState("");
+  const [fk_membro, setFk_membro] = useState("");
+  const [data_multa, setData_multa] = useState("");
+  const [data_prazo, setData_prazo] = useState("");
+  const [valor, setValor] = useState("");
+  const [status, setStatus] = useState("");
 
   const [adopen, setAdOpen] = React.useState(false);
   const addOn = () => setAdOpen(true);
@@ -60,79 +56,71 @@ const Multas = () => {
   const [popen, setPOpen] = React.useState(false);
   const putOn = () => setPOpen(true);
   const putOf = () => setPOpen(false);
-//----------------------------------------------------------
-    async function getFine(){
-        try {
-
-            const response = await axios.get("http://localhost:3000/multa");
-            setFines(response.data.multas)   
-
-        } catch (error: any) {
-            console.log(error.response?.data || error.message); 
-        }
+  //----------------------------------------------------------
+  async function getFine() {
+    try {
+      const response = await axios.get("http://localhost:3000/multa");
+      setFines(response.data.multas);
+    } catch (error: any) {
+      console.log(error.response?.data || error.message);
     }
-        
-    async function postFine() {
-        
-        try {
-            const response = await axios.post('http://localhost:3000/multa', {
-                fk_emprestimo: fk_emprestimo,
-                fk_membro: fk_membro,
-                data_multa: data_multa,
-                data_prazo: data_prazo,
-                valor: valor,
-                status: status
-            });
-            getFine();
-            if (response.status === 200) alert("multa cadastro com sucesso!");
+  }
 
-        } catch (error: any) {
-            console.log("aa", error.response?.data || error.message);  // Log detalhado do erro 
-        }
+  async function postFine() {
+    try {
+      const response = await axios.post("http://localhost:3000/multa", {
+        fk_emprestimo: fk_emprestimo,
+        fk_membro: fk_membro,
+        data_multa: data_multa,
+        data_prazo: data_prazo,
+        valor: valor,
+        status: status,
+      });
+      getFine();
+      if (response.status === 200) alert("multa cadastro com sucesso!");
+    } catch (error: any) {
+      console.log("aa", error.response?.data || error.message); // Log detalhado do erro
     }
+  }
 
-    async function putFine(id:string) {
-        try {
-            const response = await axios.put(`http://localhost:3000/multa?id=${id}`, {
-                fk_emprestimo: fk_emprestimo,
-                fk_membro: fk_membro,
-                data_multa: data_multa,
-                data_prazo: data_prazo,
-                valor: valor,
-                status: status
-        });
-            if (response.status === 200) alert("multa atualizado com sucesso!");
-            getFine(); 
-        } catch (error: any) {
-            console.error("Erro na requisição:", error.response.data);
-        }
+  async function putFine(id: string) {
+    try {
+      const response = await axios.put(`http://localhost:3000/multa?id=${id}`, {
+        fk_emprestimo: fk_emprestimo,
+        fk_membro: fk_membro,
+        data_multa: data_multa,
+        data_prazo: data_prazo,
+        valor: valor,
+        status: status,
+      });
+      if (response.status === 200) alert("multa atualizado com sucesso!");
+      getFine();
+    } catch (error: any) {
+      console.error("Erro na requisição:", error.response.data);
     }
+  }
 
-    async function delFine(id:string) {
-        try {
-            const response = await axios.delete(`http://localhost:3000/multa?id=${id}`);
-            getFine(); 
-            if (response.status === 200) alert("multa atualizado com sucesso!");
-        } catch (error: any) {
-            new Error(error);
-        }
+  async function delFine(id: string) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/multa?id=${id}`
+      );
+      getFine();
+      if (response.status === 200) alert("multa atualizado com sucesso!");
+    } catch (error: any) {
+      new Error(error);
     }
-//------------------------------------------------------
-useEffect(() => {
+  }
+  //------------------------------------------------------
+  useEffect(() => {
     getFine();
-}, []);
+  }, []);
 
-const columns: GridColDef<(typeof rows)[number]>[] = [
+  const columns: GridColDef<(typeof rows)[number]>[] = [
     { field: "id", headerName: "ID", align: "left", type: "string", flex: 0 },
     {
       field: "fk_emprestimo",
       headerName: "Id-emprestimo",
-      editable: false,
-      flex: 0,
-    },
-    {
-      field: "email",
-      headerName: "Email",
       editable: false,
       flex: 0,
     },
@@ -151,12 +139,6 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
     {
       field: "data_prazo",
       headerName: "Data-prazo",
-      editable: false,
-      flex: 0,
-    },
-    {
-      field: "data_ingresso",
-      headerName: "Data-ingresso",
       editable: false,
       flex: 0,
     },
@@ -184,7 +166,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
           <IconButton onClick={() => delFine(row.id)}>
             <DeleteIcon />
           </IconButton>
-  
+
           <IconButton onClick={putOn}>
             <EditIcon />
           </IconButton>
@@ -192,7 +174,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
       ),
     },
   ];
-  
+
   //Mapeando cada item da lista, e o valor de cada item é dado como categoria
   const rows = fines.map((multa) => ({
     id: multa.id_multa,
@@ -223,48 +205,54 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              Membros
+              Multas
             </AccordionSummary>
             <AccordionDetails>
               Olá! <br />
               Explicando os membros <br />
-              
               <strong> Id:</strong> Se trata do <strong> código único </strong>{" "}
-              que cada membro tem, assim como um <strong> CPF! </strong>{" "}
+              que cada membro tem, assim como um <strong> CPF! </strong> <br />
+              <Divider />
+              <strong>Nome:</strong> Se trata do <strong>Usuario</strong> no
+              qual o membro se cadastrou. <br />
+              <Divider />
+              <strong>Senha:</strong> Se trata da <strong>Senha</strong> no qual
+              o membro utiliza. <br />
+              <Divider />
+              <strong>Cpf:</strong> Se trata do{" "}
+              <strong>Cadastro de Pessoa Fisica</strong> no qual o membro possui
+              registrado. <br />
+              <Divider />
+              <strong>Telefone:</strong> Se trata do{" "}
+              <strong>número de telefone</strong> pessoal do membro <br />
+              <Divider />
+              <strong>Data-ingresso:</strong> Se trata da <strong>data</strong>{" "}
+              no qual o membro se cadastrou.
+              <br /> <Divider />
+              <strong>ADM:</strong> Se trata da{" "}
+              <strong> hierarquia administrativa </strong> no qual os membros
+              possuem:
               <br />
-              <Divider />
-              <strong>Nome:</strong> Se trata do{" "}
-              <strong>Usuario</strong> no qual o membro se cadastrou.{" "}<br />
-              <Divider />
-              <strong>Senha:</strong> Se trata da{" "}
-              <strong>Senha</strong> no qual o membro utiliza.{" "}<br />
-              <Divider />
-              <strong>Cpf:</strong> Se trata do <strong>Cadastro de Pessoa Fisica</strong>{" "}
-              no qual o membro possui registrado. <br />
-              <Divider />
-              <strong>Telefone:</strong> Se trata do <strong>número de telefone</strong>{" "}
-              pessoal do membro <br />
-              <Divider />
-              <strong>Data-ingresso:</strong> Se trata da <strong>data</strong> no
-              qual o membro se cadastrou.<br /> {" "}
-              <Divider />
-              <strong>ADM:</strong> Se trata da <strong> hierarquia administrativa </strong> no
-              qual os membros possuem:<br />
-              <strong>false = Não é um moderador <br /> 
-              true =  É um moderador </strong>
-              <br />{" "}
-              <Divider />
+              <strong>
+                false = Não é um moderador <br />
+                true = É um moderador{" "}
+              </strong>
+              <br /> <Divider />
               <strong>Status:</strong> Se trata da <strong>atividade</strong> no
               na qual a conta do membro está: <br />
-              <strong> false = Conta desativada <br />
-               true = Conta ativada</strong> <br />
+              <strong>
+                {" "}
+                false = Conta desativada <br />
+                true = Conta ativada
+              </strong>{" "}
+              <br />
             </AccordionDetails>
             <AccordionActions>
               <Button>Ok, entendido!</Button>
             </AccordionActions>
           </Accordion>
         </Box>
-  
+
         <Stack direction="row" spacing={2}>
           <Button
             onClick={addOn}
@@ -273,7 +261,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
           >
             Adicionar
           </Button>
-  
+
           <Button variant="outlined" startIcon={<SearchIcon />}>
             Pesquisar
           </Button>
@@ -295,7 +283,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
             disableRowSelectionOnClick
           />
         </Box>
-  
+
         <Modal //Modal ADICIONAR
           open={adopen}
           onClose={addOf}
@@ -306,7 +294,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Nova multa
             </Typography>
-  
+
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <TextField //Prencher nome
                 id="outlined-helperText"
@@ -348,18 +336,17 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
                 value={valor}
                 onChange={(e) => setValor(e.target.value)}
               />
-              <InputLabel id="demo-simple-select-label">Cargo</InputLabel>
-                <Select
-                  labelId="select-label"
-                  id="demo-simple-select"
-                  value={status}
-                  label="Status"
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <MenuItem value={0}>Pendente</MenuItem>
-                  <MenuItem value={1}>Efetuada</MenuItem>
-                  
-                </Select>
+              <InputLabel id="demo-simple-select-label">Status</InputLabel>
+              <Select
+                labelId="select-label"
+                id="demo-simple-select"
+                value={status}
+                label="Status"
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <MenuItem value={0}>Pendente</MenuItem>
+                <MenuItem value={1}>Efetuada</MenuItem>
+              </Select>
               <Button
                 onClick={postFine}
                 variant="outlined"
@@ -370,7 +357,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
             </Typography>
           </Box>
         </Modal>
-  
+
         <Modal //Modal EDITAR
           open={popen}
           onClose={putOf}
@@ -381,7 +368,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Editar membro
             </Typography>
-  
+
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <TextField //Prencher nome
                 id="outlined-helperText"
@@ -423,18 +410,17 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
                 value={valor}
                 onChange={(e) => setValor(e.target.value)}
               />
-              <InputLabel id="demo-simple-select-label">Cargo</InputLabel>
-                <Select
-                  labelId="select-label"
-                  id="demo-simple-select"
-                  value={status}
-                  label="Status"
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <MenuItem value={0}>Pendente</MenuItem>
-                  <MenuItem value={1}>Efetuada</MenuItem>
-                  
-                </Select>
+              <InputLabel id="demo-simple-select-label">Status</InputLabel>
+              <Select
+                labelId="select-label"
+                id="demo-simple-select"
+                value={status}
+                label="Status"
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <MenuItem value={0}>Pendente</MenuItem>
+                <MenuItem value={1}>Efetuada</MenuItem>
+              </Select>
               <Button
                 onClick={postFine}
                 variant="outlined"
@@ -448,18 +434,17 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
       </Box>
     </Box>
   );
-  }
+};
 
-
-  export default Multas;
+export default Multas;
 // return(
 
 //     <div>
 //         <h1> Aqui estão os autores dos seus livros favoritos: </h1>
 //         <h2> use com sabedoria </h2>
 //         <h3> Separamos a obra do autor {`>:(`} </h3>
-//         {fines && fines?.length > 0 ? fines.map((multa) => 
-//             ( 
+//         {fines && fines?.length > 0 ? fines.map((multa) =>
+//             (
 //                 <div
 //                     key={multa.id_multa}
 //                     style={{
@@ -468,21 +453,21 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //                     flexDirection: 'column',
 //                     gap: '10px',
 //                     alignItems: 'center'
-//                     }}> 
+//                     }}>
 
 //                     <span> Id_multa {multa.id_multa}  </span>
 //                     <span> Data    {multa.valor}     </span>
 //                     <button onClick={ () => putFine(multa.id_multa)}> Alterar multa </button>
 //                     <button onClick={ () => delFine(multa.id_multa)}> Deletar multa </button>
 //                 </div>
-//             )) : 
+//             )) :
 //             (
 //                 <h1>Carregando...a</h1>
-                
+
 //             )
 //         }
-         
-//         <input 
+
+//         <input
 //           type="text"
 //           id  ="fk_membro"
 //           placeholder='fk_membro'
@@ -490,7 +475,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //           onChange ={(e) => setFk_membro(e.target.value)}
 //         />
 
-//         <input 
+//         <input
 //           type="text"
 //           id  ="fk_emprestimo"
 //           placeholder='fk_emprestimo'
@@ -498,7 +483,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //           onChange ={(e) => setFk_emprestimo(e.target.value)}
 //         />
 
-//         <input 
+//         <input
 //           type="text"
 //           id  ="data_multa"
 //           placeholder='data_multa'
@@ -506,7 +491,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //           onChange ={(e) => setData_multa(e.target.value)}
 //         />
 
-//         <input 
+//         <input
 //           type="text"
 //           id  ="data_prazo"
 //           placeholder='data_prazo'
@@ -514,7 +499,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //           onChange ={(e) => setData_prazo(e.target.value)}
 //         />
 
-//         <input 
+//         <input
 //           type="text"
 //           id  ="valor"
 //           placeholder='valor'
@@ -522,7 +507,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //           onChange ={(e) => setValor(e.target.value)}
 //         />
 
-//     <input 
+//     <input
 //           type="text"
 //           id  ="status"
 //           placeholder='status'
@@ -530,9 +515,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //           onChange ={(e) => setStatus(Number(e.target.value))}
 //         />
 
-
 //         <button onClick={postFine}> Adicionar Status </button>
 //         <button onClick={getFine}> Get Status </button>
 //     </div>
 // )}
-

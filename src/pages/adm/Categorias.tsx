@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { CategoryVO } from "../../services/types";
 import { getCategories } from "../../services/CategoryService";
 
-
 import axios from "axios";
 import * as React from "react";
 
@@ -20,7 +19,7 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Modal from "@mui/material/Modal";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -54,11 +53,10 @@ const Template = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut]      = React.useState("")
-  const [popen, setPOpen]  = React.useState(false);
+  const [put, setPut] = React.useState("");
+  const [popen, setPOpen] = React.useState(false);
   const putOn = () => setPOpen(true);
   const putOf = () => setPOpen(false);
-
 
   //Função assincrona findCategories que cria a variável response que complementa o GetCategories
   async function findCategories() {
@@ -120,19 +118,19 @@ const Template = () => {
   }
 
   const columns: GridColDef<(typeof rows)[number]>[] = [
-    { field: "id", headerName: "ID",  align:'left', type: 'string', flex: 0},
+    { field: "id", headerName: "ID", align: "left", type: "string", flex: 0 },
     {
       field: "categoria",
       headerName: "Categoria",
       editable: false,
-      flex: 0
+      flex: 0,
     },
     {
       field: "acoes",
       headerName: "Ações",
       editable: false,
-      align:'center',
-      type: 'actions',
+      align: "center",
+      type: "actions",
       flex: 0,
       renderCell: ({ row }) => (
         <div>
@@ -154,42 +152,41 @@ const Template = () => {
     categoria: categoria.categoria,
   }));
 
- return (
-   <Box>
-     <MiniDrawer />
-     <Box
-       sx={{
-         display: "flex",
-         flexDirection: "column",
-         marginLeft: 35,
-         marginTop: 10,
-         gap: 5,
-       }}
-     >
-       <Box sx={{ display: "flex", flexDirection: "row" }}>
-         <Accordion>
-           <AccordionSummary
-             expandIcon={<ExpandMoreIcon />}
-             aria-controls="panel1-content"
-             id="panel1-header"
-           >
-             Categorias
-           </AccordionSummary>
-           <AccordionDetails>
-             Olá! <br />
-             Explicando suas categorias <br />
-             <strong> Id:</strong> Se trata do <strong> código </strong> que
-             cada categoria tem, assim como um <strong> CPF! </strong> <br />
-             <Divider />
-             <strong>Categoria:</strong> Se trata do <strong>tipo</strong> de
-             categoria. <strong>Romance, ficção</strong> <br />
-           </AccordionDetails>
-           <AccordionActions>
-             <Button>Ok, entendido!</Button>
-           </AccordionActions>
-         </Accordion>
-       </Box>
-       
+  return (
+    <Box>
+      <MiniDrawer />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: 35,
+          marginTop: 10,
+          gap: 5,
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              Categorias
+            </AccordionSummary>
+            <AccordionDetails>
+              Olá! <br />
+              Explicando suas categorias <br />
+              <strong> Id:</strong> Se trata do <strong> código </strong> que
+              cada categoria tem, assim como um <strong> CPF! </strong> <br />
+              <Divider />
+              <strong>Categoria:</strong> Se trata do <strong>tipo</strong> de
+              categoria. <strong>Romance, ficção</strong> <br />
+            </AccordionDetails>
+            <AccordionActions>
+              <Button>Ok, entendido!</Button>
+            </AccordionActions>
+          </Accordion>
+        </Box>
 
         <Stack direction="row" spacing={2}>
           <Button
@@ -199,8 +196,6 @@ const Template = () => {
           >
             Adicionar
           </Button>
-         
-        
 
           <Button variant="outlined" startIcon={<SearchIcon />}>
             Pesquisar
@@ -208,7 +203,7 @@ const Template = () => {
         </Stack>
         <Box sx={GridStyle}>
           <DataGrid
-            autoHeight 
+            autoHeight
             rows={rows}
             columns={columns}
             initialState={{
@@ -224,68 +219,67 @@ const Template = () => {
           />
         </Box>
 
-        <Modal        //Modal ADICIONAR
-           open={adopen}
-           onClose={addOf}
-           aria-labelledby="modal-modal-title"
-           aria-describedby="modal-modal-description"
-         >
-           <Box sx={ModalStyle}>
-             
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Nova categoria
-              </Typography>
+        <Modal //Modal ADICIONAR
+          open={adopen}
+          onClose={addOf}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={ModalStyle}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Nova categoria
+            </Typography>
 
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <TextField //Prencher Categoria
-                  id="outlined-helperText"
-                  label="Categoria"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={categoria}
-                  onChange={(e) => setCategoria(e.target.value)}
-                />
-                <Button
-                  onClick={postCategory}
-                  variant="outlined"
-                  startIcon={<DoneIcon />}
-                >
-                  Cadastrar
-                </Button>
-              </Typography>
-            </Box>
-          </Modal>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <TextField //Prencher Categoria
+                id="outlined-helperText"
+                label="Categoria"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+              />
+              <Button
+                onClick={postCategory}
+                variant="outlined"
+                startIcon={<DoneIcon />}
+              >
+                Cadastrar
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
 
-          <Modal //Modal EDITAR
-            open={popen}
-            onClose={putOf}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={ModalStyle}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Editar categoria
-              </Typography>
+        <Modal //Modal EDITAR
+          open={popen}
+          onClose={putOf}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={ModalStyle}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Editar categoria
+            </Typography>
 
-             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-               <TextField //Prencher Categoria
-                 id="outlined-helperText"
-                 label="Categoria"
-                 defaultValue=""
-                 helperText="Obrigatório"
-                 value={categoria}
-                 onChange={(e) => setCategoria(e.target.value)}
-               />
-               <Button
-                 onClick={postCategory}
-                 variant="outlined"
-                 startIcon={<DoneIcon />}
-               >
-                 Alterar
-               </Button>
-             </Typography>
-           </Box>
-         </Modal>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <TextField //Prencher Categoria
+                id="outlined-helperText"
+                label="Categoria"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+              />
+              <Button
+                onClick={postCategory}
+                variant="outlined"
+                startIcon={<DoneIcon />}
+              >
+                Alterar
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
       </Box>
     </Box>
   );

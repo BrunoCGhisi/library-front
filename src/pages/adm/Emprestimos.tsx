@@ -19,7 +19,7 @@ import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Modal from "@mui/material/Modal";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -39,7 +39,6 @@ import { ModalStyle } from "./styles";
 import { GridStyle } from "./styles";
 
 const Emprestimos = () => {
-
   const [loans, setLoans] = useState<LoanVO[]>([]);
   const [fk_livro, setFk_livro] = useState("");
   const [fk_membro, setFk_membro] = useState("");
@@ -173,8 +172,6 @@ const Emprestimos = () => {
     },
   ];
 
-
-
   //Mapeando cada item da lista, e o valor de cada item é dado como categoria
   const rows = loans.map((emprestimo) => ({
     id: emprestimo.id_emprestimo,
@@ -216,23 +213,34 @@ const Emprestimos = () => {
               <Divider />
               <strong>Id-Livro:</strong> Se trata do{" "}
               <strong>id do livro</strong> no qual o empréstimo foi feito.{" "}
-              <strong><br />exemplo: 1 = 1984 </strong> <br />
+              <strong>
+                <br />
+                exemplo: 1 = 1984{" "}
+              </strong>{" "}
+              <br />
               <Divider />
               <strong>Id-Membro:</strong> Se trata do{" "}
               <strong>Id do membro</strong> no qual o empréstimo foi feito.{" "}
-              <strong><br />exemplo: 1 = Belone </strong> <br />
+              <strong>
+                <br />
+                exemplo: 1 = Belone{" "}
+              </strong>{" "}
+              <br />
               <Divider />
               <strong>Data-entrada:</strong> Se trata da <strong>data</strong>{" "}
               no qual o empréstimo foi feito. <br />
               <Divider />
               <strong>Data-retorno:</strong> Se trata da <strong>data</strong>{" "}
-              no qual o  livro foi retornado <br />
+              no qual o livro foi retornado <br />
               <Divider />
               <strong>Status:</strong> Se trata do <strong>status</strong> no
-              qual o empréstimo está.{" "}<br />
-              <strong> 1 = Emprestado <br />
-                2 = Retornado <br />
-                3 = Atrasado </strong> <br />
+              qual o empréstimo está. <br />
+              <strong>
+                {" "}
+                1 = Emprestado <br />
+                2 = Retornado <br />3 = Atrasado{" "}
+              </strong>{" "}
+              <br />
             </AccordionDetails>
             <AccordionActions>
               <Button>Ok, entendido!</Button>
@@ -325,7 +333,7 @@ const Emprestimos = () => {
               >
                 <MenuItem value={1}>Emprestado</MenuItem>
                 <MenuItem value={2}>Retornado </MenuItem>
-                <MenuItem value={3}>Atrasado  </MenuItem>
+                <MenuItem value={3}>Atrasado </MenuItem>
               </Select>
               <Button
                 onClick={postLoan}
@@ -406,7 +414,7 @@ const Emprestimos = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default Emprestimos;
 
@@ -485,4 +493,4 @@ export default Emprestimos;
 
 // )
 
-// 
+//
