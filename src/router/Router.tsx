@@ -21,7 +21,7 @@ const Router = () => (
   //constante Router é igual a uma função vazia que vai executar a pesquisa rotas e paginas
   <BrowserRouter>
     <Routes>
-      <Route index element={<Template />} />
+      <Route index element={<Categorias />} />
       <Route path="/home" element={<Home />} />
       <Route path="/historico" element={<Historico />} />
       <Route path="/Categorias" element={<Categorias />} />

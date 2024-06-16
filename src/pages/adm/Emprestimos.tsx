@@ -6,40 +6,41 @@ import axios from "axios";
 import { MiniDrawer } from "./components";
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+  InputLabel,
+  Select,
+  MenuItem
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import { ModalStyle, GridStyle } from "./styles";
 
 const Emprestimos = () => {
   const [loans, setLoans] = useState<LoanVO[]>([]);
+  const [loanId, setLoanId] = useState("");
   const [fk_livro, setFk_livro] = useState("");
   const [fk_membro, setFk_membro] = useState("");
   const [data_emprestimo, setData_emprestimo] = useState("");
@@ -53,7 +54,22 @@ const Emprestimos = () => {
 
   //Modal Put
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (
+    id: string,
+    fk_livro: string,
+    fk_membro: string,
+    data_emprestimo: string,
+    data_retorno: string,
+    fk_status: string
+  ) => {
+    setLoanId(id);
+    setFk_livro(fk_livro);
+    setFk_membro(fk_membro);
+    setData_emprestimo(data_emprestimo);
+    setData_retorno(data_retorno);
+    setFk_status(fk_status);
+    setPOpen(true);
+  };
   const putOf = () => setPOpen(false);
 
   //----------------------------------------------------------
@@ -79,13 +95,15 @@ const Emprestimos = () => {
       if (response.status === 200) alert("reserva cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
+    } finally {
+      addOf();
     }
   }
 
-  async function putLoan(id: string) {
+  async function putLoan() {
     try {
       const response = await axios.put(
-        `http://localhost:3000/emprestimo?id=${id}`,
+        `http://localhost:3000/emprestimo?id=${loanId}`,
         {
           fk_livro: fk_livro,
           fk_membro: fk_membro,
@@ -98,6 +116,8 @@ const Emprestimos = () => {
       getLoan();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
+    } finally {
+      putOf();
     }
   }
 
@@ -163,7 +183,18 @@ const Emprestimos = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton
+            onClick={() =>
+              putOn(
+                row.id,
+                row.fk_livro,
+                row.fk_membro,
+                row.data_emprestimo,
+                row.data_retorno,
+                row.fk_status
+              )
+            }
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -237,14 +268,11 @@ const Emprestimos = () => {
               <strong>
                 {" "}
                 1 = Emprestado <br />
-                2 = Retornado <br />
-                3 = Atrasado{" "}
+                2 = Retornado <br />3 = Atrasado{" "}
               </strong>{" "}
               <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
+            
           </Accordion>
         </Box>
 
@@ -255,10 +283,6 @@ const Emprestimos = () => {
             startIcon={<AddCircleOutlineIcon />}
           >
             Adicionar
-          </Button>
-
-          <Button variant="outlined" startIcon={<SearchIcon />}>
-            Pesquisar
           </Button>
         </Stack>
         <Box sx={GridStyle}>
@@ -398,15 +422,16 @@ const Emprestimos = () => {
                 label="Status"
                 onChange={(e) => setFk_status(e.target.value)}
               >
-                <MenuItem value={0}>Não retornado</MenuItem>
-                <MenuItem value={1}>Retornado </MenuItem>
+                <MenuItem value={1}>Emprestado</MenuItem>
+                <MenuItem value={2}>Retornado </MenuItem>
+                <MenuItem value={3}>Atrasado </MenuItem>
               </Select>
               <Button
-                onClick={postLoan}
+                onClick={putLoan}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
-                Cadastrar
+                Alterar
               </Button>
             </Typography>
           </Box>

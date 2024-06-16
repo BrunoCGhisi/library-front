@@ -1,16 +1,28 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
-import {CategoryVO} from "../../services/types";
-import {getCategories} from "../../services";
+import { useEffect, useState } from "react";
+import { CategoryVO } from "../../services/types";
+import { getCategories } from "../../services";
 
 import axios from "axios";
 
-import {MiniDrawer} from "./components";
+import { MiniDrawer } from "./components";
 //Material UI
-import {Accordion, AccordionActions, AccordionDetails, Box, Modal, AccordionSummary, Button, Divider, IconButton, Stack, TextField, Typography} from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 //Relacionados ao Grid
-import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -20,9 +32,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
-import {GridStyle, ModalStyle} from "./styles";
+import { GridStyle, ModalStyle } from "./styles";
 
-const Template = () => {
+const Categorias = () => {
   //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
   const [categories, setCategories] = useState<CategoryVO[]>([]);
   //UseStates relacionados ao post
@@ -40,10 +52,10 @@ const Template = () => {
   //Modal Put
   const [popen, setPOpen] = React.useState(false);
   const putOn = (id: string, categoria: string) => {
-    setCategoria(categoria)
-    setCategoriaId(id)
+    setCategoria(categoria);
+    setCategoriaId(id);
     setPOpen(true);
-  }
+  };
   const putOf = () => setPOpen(false);
 
   //Função assincrona findCategories que cria a variável response que complementa o GetCategories
@@ -70,7 +82,7 @@ const Template = () => {
       //setOpenPAlert(false);
       new Error(error);
     } finally {
-      addOf()
+      addOf();
     }
   }
 
@@ -86,12 +98,12 @@ const Template = () => {
         }
       );
       console.debug(response);
-      if (response.status === 200) alert("usuário alterado com sucesso!"); //Se a alteração ocorrer, pop up,
+      if (response.status === 200) alert("Usuário alterado com sucesso!"); //Se a alteração ocorrer, pop up,
       findCategories(); //refresh nas categorias
     } catch (error: any) {
       new Error(error);
     } finally {
-      putOf()
+      putOf();
     }
   }
   //Criando uma função assincrona Put
@@ -102,7 +114,7 @@ const Template = () => {
         `http://localhost:3000/categoria?id=${id}`
       ); //Vai procurar pelo argumento
       console.log(response);
-      if (response.status === 200) alert("usuário deletado com sucesso!"); //Se o delete ocorrer, pop up,
+      if (response.status === 200) alert("Categoria deletada com sucesso!"); //Se o delete ocorrer, pop up,
       findCategories(); //refresh nas categorias
     } catch (error: any) {
       new Error(error);
@@ -174,9 +186,6 @@ const Template = () => {
               <strong>Categoria:</strong> Se trata do <strong>tipo</strong> de
               categoria. <strong>Romance, ficção</strong> <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
           </Accordion>
         </Box>
 
@@ -202,8 +211,6 @@ const Template = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
           />
         </Box>
 
@@ -273,4 +280,4 @@ const Template = () => {
   );
 };
 
-export default Template;
+export default Categorias;

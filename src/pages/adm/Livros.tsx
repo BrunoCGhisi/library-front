@@ -4,39 +4,38 @@ import axios from "axios";
 
 import { MiniDrawer } from "./components";
 
-
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
-import BookIcon from '@mui/icons-material/Book';
+import BookIcon from "@mui/icons-material/Book";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
-import styled from "@emotion/styled";
+import { ModalStyle, GridStyle } from "./styles";
+
 
 const Livros = () => {
   const [books, setBooks] = useState<BooksVO[]>([]);
@@ -62,7 +61,7 @@ const Livros = () => {
 
   async function getBooks() {
     try {
-      const response = await axios.get('http://localhost:3000/livro');
+      const response = await axios.get("http://localhost:3000/livro");
       setBooks(response.data.livros);
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
@@ -71,14 +70,14 @@ const Livros = () => {
 
   async function postBooks() {
     try {
-      const response = await axios.post('http://localhost:3000/livro', {
+      const response = await axios.post("http://localhost:3000/livro", {
         fk_autor,
         fk_categoria,
         titulo,
         ano,
         disponiveis,
         estoque,
-        capa
+        capa,
       });
 
       if (response.status === 200) alert("Adicionado com sucesso");
@@ -97,7 +96,7 @@ const Livros = () => {
         ano,
         disponiveis,
         estoque,
-        capa
+        capa,
       });
 
       if (response.status === 200) alert("Atualizado com sucesso");
@@ -109,7 +108,9 @@ const Livros = () => {
 
   async function delBooks(id: string) {
     try {
-      const response = await axios.delete(`http://localhost:3000/livro?id=${id}`);
+      const response = await axios.delete(
+        `http://localhost:3000/livro?id=${id}`
+      );
 
       if (response.status === 200) alert("Deletado com sucesso");
       getBooks();
@@ -123,32 +124,32 @@ const Livros = () => {
   }, []);
 
   function Convert(file?: Blob) {
-      if (file) {
-          return new Promise((resolve, reject) => {
-              const fileReader = new FileReader();
-              fileReader.readAsDataURL(file);
+    if (file) {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
 
-              fileReader.onload = async () => {
-                  const base64String = fileReader.result as string;
-                  setCapa(base64String);
-                  resolve(base64String);
-              };
+        fileReader.onload = async () => {
+          const base64String = fileReader.result as string;
+          setCapa(base64String);
+          resolve(base64String);
+        };
 
-              fileReader.onerror = error => {
-                  reject(error);
-              };
-          });
-      }
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+    }
   }
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
     height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
+    overflow: "hidden",
+    position: "absolute",
     bottom: 0,
     left: 0,
-    whiteSpace: 'nowrap',
+    whiteSpace: "nowrap",
     width: 1,
   });
 
@@ -220,7 +221,7 @@ const Livros = () => {
     ano: livro.ano,
     disponiveis: livro.disponiveis,
     estoque: livro.estoque,
-    capa: livro.capa
+    capa: livro.capa,
   }));
 
   return (
@@ -332,83 +333,83 @@ const Livros = () => {
               Novo livro
             </Typography>
 
-            <Typography id="modal-modal-description" sx={{mt: 2}}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <TextField //Prencher nome
-                  id="outlined-helperText"
-                  label="Id-autor"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={fk_autor}
-                  onChange={(e) => setFk_autor(e.target.value)}
+                id="outlined-helperText"
+                label="Id-autor"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={fk_autor}
+                onChange={(e) => setFk_autor(e.target.value)}
               />
               <TextField //Prencher Categoria
-                  id="outlined-helperText"
-                  label="Id-categoria"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={fk_categoria}
-                  onChange={(e) => setFk_categoria(e.target.value)}
+                id="outlined-helperText"
+                label="Id-categoria"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={fk_categoria}
+                onChange={(e) => setFk_categoria(e.target.value)}
               />
               <TextField //Prencher Categoria
-                  id="outlined-helperText"
-                  label="Titulo"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={titulo}
-                  onChange={(e) => setTitulo(e.target.value)}
+                id="outlined-helperText"
+                label="Titulo"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
               />
               <TextField //Prencher Categoria
-                  id="outlined-helperText"
-                  label="Ano"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={ano}
-                  onChange={(e) => setAno(e.target.value)}
+                id="outlined-helperText"
+                label="Ano"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={ano}
+                onChange={(e) => setAno(e.target.value)}
               />
               <TextField //Prencher Categoria
-                  id="outlined-helperText"
-                  label="Disponíveis"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={disponiveis}
-                  onChange={(e) => setDisponiveis(e.target.value)}
+                id="outlined-helperText"
+                label="Disponíveis"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={disponiveis}
+                onChange={(e) => setDisponiveis(e.target.value)}
               />
               <TextField //Prencher Categoria
-                  id="outlined-helperText"
-                  label="Estoque"
-                  defaultValue=""
-                  helperText="Obrigatório"
-                  value={estoque}
-                  onChange={(e) => setEstoque(e.target.value)}
+                id="outlined-helperText"
+                label="Estoque"
+                defaultValue=""
+                helperText="Obrigatório"
+                value={estoque}
+                onChange={(e) => setEstoque(e.target.value)}
               />
               <input
-                  type="file"
-                  id="capa"
-                  placeholder='capa'
-                  onChange={(e) => Convert(e.target.files?.[0])}
+                type="file"
+                id="capa"
+                placeholder="capa"
+                onChange={(e) => Convert(e.target.files?.[0])}
               />
-                  <Button
-                    component="label"
-                    role={undefined}
-                    variant="contained"
-                    tabIndex={-1}
-                    startIcon={<BookIcon />}
-                      >
-                  Upload file
-              <VisuallyHiddenInput type="file" />
-            </Button>
-            <Button
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<BookIcon />}
+              >
+                Upload file
+                <VisuallyHiddenInput type="file" />
+              </Button>
+              <Button
                 onClick={postBooks}
                 variant="outlined"
-                startIcon={<DoneIcon/>}
-            >
-              Cadastrar
-            </Button>
-          </Typography>
-      </Box>
-    </Modal>
+                startIcon={<DoneIcon />}
+              >
+                Cadastrar
+              </Button>
+            </Typography>
+          </Box>
+        </Modal>
 
-{/*<Modal //Modal EDITAR
+        {/*<Modal //Modal EDITAR
           open={popen}
           onClose={putOf}
           aria-labelledby="modal-modal-title"

@@ -1,43 +1,43 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthorsVO } from "../../services/types";
 import { MiniDrawer } from "./components";
 
 import axios from "axios";
-import * as React from "react";
+
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import { ModalStyle, GridStyle } from "./styles";
+
 const Autores = () => {
   //UseState esta recebendo o tipo CategoryVO, pois vamos utilziar ele
   const [authors, setAuthors] = useState<AuthorsVO[]>([]);
-
+  const [autorId, setAutorId] = useState("");
   //UseStates variaveis da tabela
   const [nome, setNome] = useState("");
 
@@ -47,9 +47,12 @@ const Autores = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (id: string, nome: string) => {
+    setNome(nome);
+    setAutorId(id);
+    setPOpen(true);
+  };
   const putOf = () => setPOpen(false);
 
   //------------------------------------------------------
@@ -72,18 +75,25 @@ const Autores = () => {
       if (response.status === 200) alert("Autor cadastro com sucesso!");
     } catch (error: any) {
       new Error(error);
+    } finally {
+      addOf();
     }
   }
 
-  async function putAuthors(id: string) {
+  async function putAuthors() {
     try {
-      const response = await axios.put(`http://localhost:3000/autor?id=${id}`, {
-        nome: nome,
-      });
+      const response = await axios.put(
+        `http://localhost:3000/autor?id=${autorId}`,
+        {
+          nome: nome,
+        }
+      );
       if (response.status === 200) alert("Autor atualizado com sucesso!");
       getAuthors();
     } catch (error: any) {
       new Error(error);
+    } finally {
+      putOf();
     }
   }
 
@@ -129,7 +139,7 @@ const Autores = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton onClick={() => putOn(row.id, row.nome)}>
             <EditIcon />
           </IconButton>
         </div>
@@ -172,12 +182,10 @@ const Autores = () => {
               <br />
               <strong> Id:</strong> Se trata do <strong> código </strong> que
               cada autor tem, assim como um <strong> CPF! </strong> <br />
+              <Divider />
               <strong>Nome:</strong> Se trata do <strong>nome</strong> pessoal
               do autor categoria. <strong>Belone, Daniel</strong> <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
           </Accordion>
         </Box>
 
@@ -188,10 +196,6 @@ const Autores = () => {
             startIcon={<AddCircleOutlineIcon />}
           >
             Adicionar
-          </Button>
-
-          <Button variant="outlined" startIcon={<SearchIcon />}>
-            Pesquisar
           </Button>
         </Stack>
         <Box sx={GridStyle}>
@@ -206,8 +210,6 @@ const Autores = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
           />
         </Box>
 
@@ -250,7 +252,7 @@ const Autores = () => {
         >
           <Box sx={ModalStyle}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Editar categoria
+              Editar autor
             </Typography>
 
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -263,7 +265,7 @@ const Autores = () => {
                 onChange={(e) => setNome(e.target.value)}
               />
               <Button
-                onClick={postAuthors}
+                onClick={putAuthors}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
