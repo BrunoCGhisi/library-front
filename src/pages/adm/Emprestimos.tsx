@@ -238,7 +238,8 @@ const Emprestimos = () => {
               <strong>
                 {" "}
                 1 = Emprestado <br />
-                2 = Retornado <br />3 = Atrasado{" "}
+                2 = Retornado <br />
+                3 = Atrasado{" "}
               </strong>{" "}
               <br />
             </AccordionDetails>

@@ -27,7 +27,7 @@ import Typography from "@mui/material/Typography";
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
