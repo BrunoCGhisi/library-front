@@ -36,9 +36,9 @@ import BookIcon from "@mui/icons-material/Book";
 
 import { ModalStyle, GridStyle } from "./styles";
 
-
 const Livros = () => {
   const [books, setBooks] = useState<BooksVO[]>([]);
+  const [bookId, setBookId] = useState("");
   const [fk_autor, setFk_autor] = useState("");
   const [fk_categoria, setFk_categoria] = useState("");
   const [titulo, setTitulo] = useState("");
@@ -54,7 +54,26 @@ const Livros = () => {
 
   //Modal Put
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (
+    id: string,
+    fk_autor: string,
+    fk_categoria: string,
+    titulo: string,
+    ano: string,
+    disponiveis: string,
+    estoque: string,
+    capa: string
+  ) => {
+    setBookId(id);
+    setFk_autor(fk_autor);
+    setFk_categoria(fk_categoria);
+    setTitulo(titulo);
+    setAno(ano);
+    setDisponiveis(disponiveis);
+    setEstoque(estoque);
+    setCapa(capa);
+    setPOpen(true);
+  };
   const putOf = () => setPOpen(false);
 
   //------------------------------------------------------
@@ -84,12 +103,14 @@ const Livros = () => {
       getBooks();
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
+    } finally {
+      addOf();
     }
   }
 
-  async function putBooks(id: string) {
+  async function putBooks() {
     try {
-      const response = await axios.put(`http://localhost:3000/livro?id=${id}`, {
+      const response = await axios.put(`http://localhost:3000/livro?id=${bookId}`, {
         fk_autor,
         fk_categoria,
         titulo,
@@ -103,6 +124,8 @@ const Livros = () => {
       getBooks();
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
+    } finally {
+      addOf();
     }
   }
 
@@ -141,17 +164,6 @@ const Livros = () => {
       });
     }
   }
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
 
   const columns: GridColDef<(typeof rows)[number]>[] = [
     { field: "id", headerName: "ID", align: "left", type: "string", flex: 0 },
@@ -204,7 +216,20 @@ const Livros = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton
+            onClick={() =>
+              putOn(
+                row.id,
+                row.fk_autor,
+                row.fk_categoria,
+                row.titulo,
+                row.ano,
+                row.disponiveis,
+                row.estoque,
+                row.capa
+              )
+            }
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -285,9 +310,7 @@ const Livros = () => {
               </strong>{" "}
               <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
+          
           </Accordion>
         </Box>
 
@@ -300,9 +323,7 @@ const Livros = () => {
             Adicionar
           </Button>
 
-          <Button variant="outlined" startIcon={<SearchIcon />}>
-            Pesquisar
-          </Button>
+          
         </Stack>
         <Box sx={GridStyle}>
           <DataGrid
@@ -317,8 +338,7 @@ const Livros = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
+           
           />
         </Box>
 
@@ -389,16 +409,6 @@ const Livros = () => {
                 onChange={(e) => Convert(e.target.files?.[0])}
               />
               <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<BookIcon />}
-              >
-                Upload file
-                <VisuallyHiddenInput type="file" />
-              </Button>
-              <Button
                 onClick={postBooks}
                 variant="outlined"
                 startIcon={<DoneIcon />}
@@ -409,7 +419,7 @@ const Livros = () => {
           </Box>
         </Modal>
 
-        {/*<Modal //Modal EDITAR
+        <Modal //Modal EDITAR
           open={popen}
           onClose={putOf}
           aria-labelledby="modal-modal-title"
@@ -423,76 +433,60 @@ const Livros = () => {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <TextField //Prencher nome
                 id="outlined-helperText"
-                label="Nome"
+                label="Id-autor"
                 defaultValue=""
                 helperText="Obrigatório"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                value={fk_autor}
+                onChange={(e) => setFk_autor(e.target.value)}
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Email"
+                label="Id-categoria"
                 defaultValue=""
                 helperText="Obrigatório"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={fk_categoria}
+                onChange={(e) => setFk_categoria(e.target.value)}
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Senha"
+                label="Titulo"
                 defaultValue=""
                 helperText="Obrigatório"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Cpf"
+                label="Ano"
                 defaultValue=""
                 helperText="Obrigatório"
-                value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
+                value={ano}
+                onChange={(e) => setAno(e.target.value)}
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Telefone"
+                label="Disponíveis"
                 defaultValue=""
                 helperText="Obrigatório"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
+                value={disponiveis}
+                onChange={(e) => setDisponiveis(e.target.value)}
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Data-ingresso"
+                label="Estoque"
                 defaultValue=""
                 helperText="Obrigatório"
-                value={data_ingresso}
-                onChange={(e) => setData_ingresso(e.target.value)}
+                value={estoque}
+                onChange={(e) => setEstoque(e.target.value)}
               />
-              <InputLabel id="demo-simple-select-label">Cargo</InputLabel>
-              <Select
-                labelId="select-label"
-                id="demo-simple-select"
-                value={is_adm}
-                label="Cargo"
-                onChange={(e) => setIs_adm(e.target.value)}
-              >
-                <MenuItem value={0}>Membro</MenuItem>
-                <MenuItem value={1}>Cargo </MenuItem>
-              </Select>
-              <InputLabel id="demo-simple-select-label">Status</InputLabel>
-              <Select
-                labelId="select-label"
-                id="demo-simple-select"
-                value={status}
-                label="Status"
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <MenuItem value={0}>Desativado</MenuItem>
-                <MenuItem value={1}>Ativado </MenuItem>
-              </Select>
+              <input
+                type="file"
+                id="capa"
+                placeholder="capa"
+                onChange={(e) => Convert(e.target.files?.[0])}
+              />
               <Button
-                onClick={postMembers}
+                onClick={putBooks}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
@@ -500,7 +494,7 @@ const Livros = () => {
               </Button>
             </Typography>
           </Box>
-        </Modal>*/}
+        </Modal>
       </Box>
     </Box>
   );
