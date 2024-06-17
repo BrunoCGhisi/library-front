@@ -30,7 +30,6 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
-import BookIcon from "@mui/icons-material/Book";
 
 //Estilos
 
@@ -110,15 +109,18 @@ const Livros = () => {
 
   async function putBooks() {
     try {
-      const response = await axios.put(`http://localhost:3000/livro?id=${bookId}`, {
-        fk_autor,
-        fk_categoria,
-        titulo,
-        ano,
-        disponiveis,
-        estoque,
-        capa,
-      });
+      const response = await axios.put(
+        `http://localhost:3000/livro?id=${bookId}`,
+        {
+          fk_autor,
+          fk_categoria,
+          titulo,
+          ano,
+          disponiveis,
+          estoque,
+          capa,
+        }
+      );
 
       if (response.status === 200) alert("Atualizado com sucesso");
       getBooks();
@@ -310,7 +312,6 @@ const Livros = () => {
               </strong>{" "}
               <br />
             </AccordionDetails>
-          
           </Accordion>
         </Box>
 
@@ -322,8 +323,6 @@ const Livros = () => {
           >
             Adicionar
           </Button>
-
-          
         </Stack>
         <Box sx={GridStyle}>
           <DataGrid
@@ -338,7 +337,6 @@ const Livros = () => {
               },
             }}
             pageSizeOptions={[6]}
-           
           />
         </Box>
 

@@ -5,40 +5,40 @@ import axios from "axios";
 import { MiniDrawer } from "./components";
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import { ModalStyle, GridStyle } from "./styles";
 
 const Membros = () => {
   const [members, setMembers] = useState<MembersVO[]>([]);
+  const [memberId, setMemberId] = useState("");
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -54,11 +54,30 @@ const Membros = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (
+    id: string,
+    nome: string,
+    email: string,
+    senha: string,
+    cpf: string,
+    telefone: string,
+    data_ingresso: string,
+    is_adm: string,
+    status: string
+  ) => {
+    setMemberId(id);
+    setNome(nome);
+    setEmail(email);
+    setSenha(senha);
+    setCpf(cpf);
+    setTelefone(telefone);
+    setData_ingresso(data_ingresso);
+    setIs_adm(is_adm);
+    setStatus(status);
+    setPOpen(true);
+  };
   const putOf = () => setPOpen(false);
-
   //------------------------------------------------------
 
   async function getMembers() {
@@ -73,41 +92,44 @@ const Membros = () => {
   async function postMembers() {
     try {
       const response = await axios.post("http://localhost:3000/membro", {
-        nome: nome,
-        email: email,
-        senha: senha,
-        cpf: cpf,
-        telefone: telefone,
-        data_ingresso: data_ingresso,
-        is_adm: is_adm,
-        status: status,
+        nome,
+        email,
+        senha,
+        cpf,
+        telefone,
+        data_ingresso,
+        is_adm,
+        status,
       });
       getMembers();
       if (response.status === 200) alert("membro cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
+    } finally {
+      addOf();
     }
   }
 
-  async function putMembers(id: string) {
+  async function putMembers() {
     try {
       const response = await axios.put(
-        `http://localhost:3000/membro?id=${id}`,
+        `http://localhost:3000/membro?id=${memberId}`,
         {
-          nome: nome,
-          email: email,
-          senha: senha,
-          cpf: cpf,
-          telefone: telefone,
-          data_ingresso: data_ingresso,
-          is_adm: is_adm,
-          status: status,
+          nome,
+          email,
+          senha,
+          telefone,
+          data_ingresso,
+          is_adm,
+          status,
         }
       );
       if (response.status === 200) alert("membro atualizado com sucesso!");
       getMembers();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
+    } finally {
+      putOf();
     }
   }
 
@@ -192,7 +214,21 @@ const Membros = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton
+            onClick={() =>
+              putOn(
+                row.id,
+                row.nome,
+                row.email,
+                row.senha,
+                row.cpf,
+                row.telefone,
+                row.data_ingresso,
+                row.is_adm,
+                row.status
+              )
+            }
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -274,9 +310,6 @@ const Membros = () => {
               </strong>{" "}
               <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
           </Accordion>
         </Box>
 
@@ -287,10 +320,6 @@ const Membros = () => {
             startIcon={<AddCircleOutlineIcon />}
           >
             Adicionar
-          </Button>
-
-          <Button variant="outlined" startIcon={<SearchIcon />}>
-            Pesquisar
           </Button>
         </Stack>
         <Box sx={GridStyle}>
@@ -306,8 +335,6 @@ const Membros = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
           />
         </Box>
 
@@ -379,8 +406,8 @@ const Membros = () => {
                 label="Cargo"
                 onChange={(e) => setIs_adm(e.target.value)}
               >
-                <MenuItem value={0}>Membro</MenuItem>
-                <MenuItem value={1}>Cargo </MenuItem>
+                <MenuItem value={"0"}>Membro</MenuItem>
+                <MenuItem value={"1"}>Adm </MenuItem>
               </Select>
               <InputLabel id="demo-simple-select-label">Status</InputLabel>
               <Select
@@ -487,7 +514,7 @@ const Membros = () => {
                 <MenuItem value={1}>Ativado </MenuItem>
               </Select>
               <Button
-                onClick={postMembers}
+                onClick={putMembers}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >

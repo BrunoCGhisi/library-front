@@ -6,7 +6,7 @@ export type MembersVO = {
     cpf : string
     telefone : string
     data_ingresso : string
-    is_adm : boolean
-    status : boolean
+    is_adm : string
+    status : string
 
 }
