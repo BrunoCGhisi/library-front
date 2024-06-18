@@ -90,7 +90,7 @@ const putOf = () => setPOpen(false);
         valor,
       });
       getPayments();
-      if (response.status === 200) alert("membro cadastro com sucesso!");
+      if (response.status === 200) alert("Pagamentp cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
     } finally {

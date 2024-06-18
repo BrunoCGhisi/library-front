@@ -146,7 +146,7 @@ const MiniDrawer = () => {
         <DrawerHeader>
           <LocalLibraryIcon />
           <Typography>
-            Nome da Livraria
+            Librarium
           </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
