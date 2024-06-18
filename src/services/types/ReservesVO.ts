@@ -5,6 +5,6 @@ export type ReserveVO = {
     fk_membro: string
     data_reserva: string
     data_retirada: string
-    status_reserva: boolean
-    status_retirada: boolean
+    status_reserva: string
+    status_retirada: string
 }

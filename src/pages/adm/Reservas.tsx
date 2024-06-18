@@ -5,24 +5,25 @@ import axios from "axios";
 import { MiniDrawer } from "./components";
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -34,11 +35,11 @@ import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import { ModalStyle, GridStyle } from "./styles";
 
 const Reservas = () => {
   const [reserves, setReserves] = useState<ReserveVO[]>([]); //Arruma isso imediatamente Maria Joana
+  const [reserveId, setReserveId] = useState("");
   const [fk_livro, setFk_livro] = useState("");
   const [fk_membro, setFk_membro] = useState("");
   const [data_reserva, setData_reserva] = useState("");
@@ -52,11 +53,28 @@ const Reservas = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (
+    id: string,
+    fk_livro: string,
+    fk_membro: string,
+    data_reserva: string,
+    data_retirada: string,
+    status_reserva: string,
+    status_retirada: string
+  ) => {
+    setReserveId(id);
+    setFk_livro(fk_livro);
+    setFk_membro(fk_membro);
+    setData_reserva(data_reserva);
+    setData_retirada(data_retirada);
+    setStatus_reserva(status_reserva);
+    setStatus_retirada(status_retirada);
+
+    setPOpen(true);
+  };
   const putOf = () => setPOpen(false);
-  
+
   //----------------------------------------------------------
   async function getReserve() {
     try {
@@ -70,37 +88,41 @@ const Reservas = () => {
   async function postReserve() {
     try {
       const response = await axios.post("http://localhost:3000/reserva", {
-        fk_livro: fk_livro,
-        fk_membro: fk_membro,
-        data_reserva: data_reserva,
-        data_retirada: data_retirada,
-        status_reserva: status_reserva,
-        status_retirada: status_retirada,
+        fk_livro,
+        fk_membro,
+        data_reserva,
+        data_retirada,
+        status_reserva,
+        status_retirada,
       });
       getReserve();
       if (response.status === 200) alert("reserva cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
+    } finally {
+      addOf();
     }
   }
 
-  async function putReserve(id: string) {
+  async function putReserve() {
     try {
       const response = await axios.put(
-        `http://localhost:3000/reserva?id=${id}`,
+        `http://localhost:3000/reserva?id=${reserveId}`,
         {
-          fk_livro: fk_livro,
-          fk_membro: fk_membro,
-          data_reserva: data_reserva,
-          data_retirada: data_retirada,
-          status_reserva: status_reserva,
-          status_retirada: status_retirada,
+          fk_livro,
+          fk_membro,
+          data_reserva,
+          data_retirada,
+          status_reserva,
+          status_retirada,
         }
       );
       if (response.status === 200) alert("reserva atualizado com sucesso!");
       getReserve();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
+    } finally {
+      putOf();
     }
   }
 
@@ -171,7 +193,19 @@ const Reservas = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton
+            onClick={() =>
+              putOn(
+                row.id,
+                row.fk_livro,
+                row.fk_membro,
+                row.data_reserva,
+                row.data_retirada,
+                row.status_reserva,
+                row.status_retirada
+              )
+            }
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -232,9 +266,6 @@ const Reservas = () => {
               sobre a multa imposta no membro
               <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
           </Accordion>
         </Box>
 
@@ -391,7 +422,7 @@ const Reservas = () => {
                 labelId="select-label"
                 id="demo-simple-select"
                 value={status_reserva}
-                label="Status"
+                label="Status-reserva"
                 onChange={(e) => setStatus_reserva(e.target.value)}
               >
                 <MenuItem value={0}>Não reservado </MenuItem>
@@ -402,18 +433,18 @@ const Reservas = () => {
                 labelId="select-label"
                 id="demo-simple-select"
                 value={status_retirada}
-                label="Status"
+                label="Status-retirada"
                 onChange={(e) => setStatus_retirada(e.target.value)}
               >
                 <MenuItem value={0}>Não retirado</MenuItem>
                 <MenuItem value={1}>Retirado </MenuItem>
               </Select>
               <Button
-                onClick={postReserve}
+                onClick={putReserve}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
-                Cadastrar
+                Alterar
               </Button>
             </Typography>
           </Box>
