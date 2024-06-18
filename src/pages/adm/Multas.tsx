@@ -5,41 +5,42 @@ import axios from "axios";
 import { MiniDrawer } from "./components";
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import SearchIcon from "@mui/icons-material/Search";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import { ModalStyle, GridStyle } from "./styles";
 
 const Multas = () => {
   const [fines, setFines] = useState<FinesVO[]>([]);
 
+  const [fineId, setFineId] = useState("");
   const [fk_emprestimo, setFk_emprestimo] = useState("");
   const [fk_membro, setFk_membro] = useState("");
   const [data_multa, setData_multa] = useState("");
@@ -52,9 +53,26 @@ const Multas = () => {
   const addOf = () => setAdOpen(false);
 
   //Modal Put
-  const [put, setPut] = React.useState("");
   const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
+  const putOn = (
+    id: string,
+    fk_emprestimo: string,
+    fk_membro: string,
+    data_multa: string,
+    data_prazo: string,
+    valor: string,
+    status: string
+  ) => {
+    setFineId(id);
+    setFk_emprestimo(fk_emprestimo);
+    setFk_membro(fk_membro);
+    setData_multa(data_multa);
+    setData_prazo(data_prazo);
+    setValor(valor);
+    setStatus(status);
+
+    setPOpen(true);
+  };
   const putOf = () => setPOpen(false);
   //----------------------------------------------------------
   async function getFine() {
@@ -69,34 +87,41 @@ const Multas = () => {
   async function postFine() {
     try {
       const response = await axios.post("http://localhost:3000/multa", {
-        fk_emprestimo: fk_emprestimo,
-        fk_membro: fk_membro,
-        data_multa: data_multa,
-        data_prazo: data_prazo,
-        valor: valor,
-        status: status,
+        fk_emprestimo,
+        fk_membro,
+        data_multa,
+        data_prazo,
+        valor,
+        status,
       });
       getFine();
       if (response.status === 200) alert("multa cadastro com sucesso!");
     } catch (error: any) {
       console.log("aa", error.response?.data || error.message); // Log detalhado do erro
+    } finally {
+      addOf();
     }
   }
 
-  async function putFine(id: string) {
+  async function putFine() {
     try {
-      const response = await axios.put(`http://localhost:3000/multa?id=${id}`, {
-        fk_emprestimo: fk_emprestimo,
-        fk_membro: fk_membro,
-        data_multa: data_multa,
-        data_prazo: data_prazo,
-        valor: valor,
-        status: status,
-      });
+      const response = await axios.put(
+        `http://localhost:3000/multa?id=${fineId}`,
+        {
+          fk_emprestimo,
+          fk_membro,
+          data_multa,
+          data_prazo,
+          valor,
+          status,
+        }
+      );
       if (response.status === 200) alert("multa atualizado com sucesso!");
       getFine();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
+    } finally {
+      putOf();
     }
   }
 
@@ -167,7 +192,19 @@ const Multas = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton
+            onClick={() =>
+              putOn(
+                row.id,
+                row.fk_emprestimo,
+                row.fk_membro,
+                row.data_multa,
+                row.data_prazo,
+                row.valor,
+                row.status
+              )
+            }
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -247,9 +284,6 @@ const Multas = () => {
               </strong>{" "}
               <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
           </Accordion>
         </Box>
 
@@ -260,10 +294,6 @@ const Multas = () => {
             startIcon={<AddCircleOutlineIcon />}
           >
             Adicionar
-          </Button>
-
-          <Button variant="outlined" startIcon={<SearchIcon />}>
-            Pesquisar
           </Button>
         </Stack>
         <Box sx={GridStyle}>
@@ -422,11 +452,11 @@ const Multas = () => {
                 <MenuItem value={1}>Efetuada</MenuItem>
               </Select>
               <Button
-                onClick={postFine}
+                onClick={putFine}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
-                Cadastrar
+                Alterar
               </Button>
             </Typography>
           </Box>

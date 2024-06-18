@@ -6,5 +6,5 @@ export type FinesVO = {
     data_multa: string
     data_prazo: string
     valor: string
-    status: boolean
+    status: string
 }
