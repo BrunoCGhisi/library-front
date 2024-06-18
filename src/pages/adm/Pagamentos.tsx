@@ -6,36 +6,40 @@ import axios from "axios";
 import { MiniDrawer } from "./components";
 //Material UI
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Modal from "@mui/material/Modal";
-import Divider from "@mui/material/Divider";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Modal,
+  AccordionSummary,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 //Relacionados ao Grid
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Typography from "@mui/material/Typography";
 
 //Icones
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 
 //Estilos
 
-import { ModalStyle } from "./styles";
-import { GridStyle } from "./styles";
+import { ModalStyle, GridStyle } from "./styles";
+
+
 
 const Pagamentos = () => {
   const [payments, setPayments] = useState<PaymentsVO[]>([]);
+  const [paymentsId, setPaymentsId] = useState("")
   const [fk_membro, setFk_membro] = useState("");
   const [fk_multa, setFk_multa] = useState("");
   const [data_pagamento, setData_pagamento] = useState("");
@@ -46,10 +50,26 @@ const Pagamentos = () => {
   const addOn = () => setAdOpen(true);
   const addOf = () => setAdOpen(false);
 
-  //Modal Put
-  const [popen, setPOpen] = React.useState(false);
-  const putOn = () => setPOpen(true);
-  const putOf = () => setPOpen(false);
+//Modal Put
+const [popen, setPOpen] = React.useState(false);
+const putOn = (
+  id: string,
+  fk_membro: string,
+  fk_multa: string,
+  data_pagamento: string,
+  valor: string,
+) => {
+  setPaymentsId(id);
+  setFk_membro(fk_membro);
+  setFk_multa(fk_multa);
+  setData_pagamento(data_pagamento)
+  setValor(valor);
+
+
+  setPOpen(true);
+};
+const putOf = () => setPOpen(false);
+
   //------------------------------------------------------
 
   async function getPayments() {
@@ -73,18 +93,22 @@ const Pagamentos = () => {
       if (response.status === 200) alert("membro cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
+    } finally {
+      addOf();
     }
   }
 
-  async function putPayments(id: string) {
+  async function putPayments() {
     try {
       const response = await axios.put(
-        `http://localhost:3000/pagamento?id=${id}`
+        `http://localhost:3000/pagamento?id=${paymentsId}`
       );
       if (response.status === 200) alert("membro atualizado com sucesso!");
       getPayments();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
+    } finally {
+      putOf();
     }
   }
 
@@ -145,7 +169,15 @@ const Pagamentos = () => {
             <DeleteIcon />
           </IconButton>
 
-          <IconButton onClick={putOn}>
+          <IconButton onClick={() =>
+              putOn(
+                row.id,
+                row.fk_membro,
+                row.fk_multa,
+                row.data_pagamento,
+                row.valor,
+              )
+            }>
             <EditIcon />
           </IconButton>
         </div>
@@ -204,9 +236,6 @@ const Pagamentos = () => {
               sobre a multa imposta no membro
               <br />
             </AccordionDetails>
-            <AccordionActions>
-              <Button>Ok, entendido!</Button>
-            </AccordionActions>
           </Accordion>
         </Box>
 
@@ -306,7 +335,7 @@ const Pagamentos = () => {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <TextField //Prencher nome
                 id="outlined-helperText"
-                label="Nome"
+                label="Id-membro"
                 defaultValue=""
                 helperText="Obrigatório"
                 value={fk_membro}
@@ -314,7 +343,7 @@ const Pagamentos = () => {
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Id-Multa"
+                label="Id-multa"
                 defaultValue=""
                 helperText="Obrigatório"
                 value={fk_multa}
@@ -322,7 +351,7 @@ const Pagamentos = () => {
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Senha"
+                label="Data-pagamento"
                 defaultValue=""
                 helperText="Obrigatório"
                 value={data_pagamento}
@@ -330,18 +359,18 @@ const Pagamentos = () => {
               />
               <TextField //Prencher Categoria
                 id="outlined-helperText"
-                label="Cpf"
+                label="Valor"
                 defaultValue=""
                 helperText="Obrigatório"
                 value={valor}
                 onChange={(e) => setValor(e.target.value)}
               />
               <Button
-                onClick={postPayments}
+                onClick={putPayments}
                 variant="outlined"
                 startIcon={<DoneIcon />}
               >
-                Cadastrar
+                Alterar
               </Button>
             </Typography>
           </Box>
