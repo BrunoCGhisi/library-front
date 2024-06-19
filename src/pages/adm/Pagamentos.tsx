@@ -90,7 +90,7 @@ const putOf = () => setPOpen(false);
         valor,
       });
       getPayments();
-      if (response.status === 200) alert("Pagamento cadastro com sucesso!");
+      if (response.status === 200) alert("Pagamento cadastrado com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
     } finally {
@@ -118,7 +118,7 @@ const putOf = () => setPOpen(false);
         `http://localhost:3000/pagamento?id=${id}`
       );
       getPayments();
-      if (response.status === 200) alert("membro atualizado com sucesso!");
+      if (response.status === 200) alert("Pagamento atualizado com sucesso!");
     } catch (error: any) {
       new Error(error);
     }

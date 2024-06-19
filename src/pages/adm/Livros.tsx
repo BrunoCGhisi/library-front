@@ -122,7 +122,7 @@ const Livros = () => {
         }
       );
 
-      if (response.status === 200) alert("Atualizado com sucesso");
+      if (response.status === 200) alert("Livro atualizado com sucesso");
       getBooks();
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
@@ -137,7 +137,7 @@ const Livros = () => {
         `http://localhost:3000/livro?id=${id}`
       );
 
-      if (response.status === 200) alert("Deletado com sucesso");
+      if (response.status === 200) alert("Livro deletado com sucesso");
       getBooks();
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);

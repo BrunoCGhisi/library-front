@@ -96,7 +96,7 @@ const Reservas = () => {
         status_retirada,
       });
       getReserve();
-      if (response.status === 200) alert("reserva cadastro com sucesso!");
+      if (response.status === 200) alert("Reserva cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
     } finally {
@@ -117,7 +117,7 @@ const Reservas = () => {
           status_retirada
         }
       );
-      if (response.status === 200) alert("reserva atualizado com sucesso!");
+      if (response.status === 200) alert("Reserva atualizado com sucesso!");
       getReserve();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
@@ -132,7 +132,7 @@ const Reservas = () => {
         `http://localhost:3000/reserva?id=${id}`
       );
       getReserve();
-      if (response.status === 200) alert("reserva atualizado com sucesso!");
+      if (response.status === 200) alert("Reserva atualizado com sucesso!");
     } catch (error: any) {
       new Error(error);
     }

@@ -127,7 +127,7 @@ const Emprestimos = () => {
         `http://localhost:3000/emprestimo?id=${id}`
       );
       getLoan();
-      if (response.status === 200) alert("reserva atualizado com sucesso!");
+      if (response.status === 200) alert("Empréstimo atualizado com sucesso!");
     } catch (error: any) {
       new Error(error);
     }

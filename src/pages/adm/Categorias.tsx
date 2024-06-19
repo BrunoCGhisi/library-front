@@ -75,7 +75,7 @@ const Categorias = () => {
       const response = await axios.post("http://localhost:3000/categoria", {
         categoria: categoria,
       });
-      if (response.status === 200) alert("usuário criado com sucesso!");
+      if (response.status === 200) alert("Categoria criado com sucesso!");
       //setOpenPAlert(true);
       findCategories();
     } catch (error: any) {
@@ -98,7 +98,7 @@ const Categorias = () => {
         }
       );
       console.debug(response);
-      if (response.status === 200) alert("Usuário alterado com sucesso!"); //Se a alteração ocorrer, pop up,
+      if (response.status === 200) alert("Categoria alterado com sucesso!"); //Se a alteração ocorrer, pop up,
       findCategories(); //refresh nas categorias
     } catch (error: any) {
       new Error(error);
