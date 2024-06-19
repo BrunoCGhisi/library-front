@@ -114,7 +114,7 @@ const Reservas = () => {
           data_reserva,
           data_retirada,
           status_reserva,
-          status_retirada,
+          status_retirada
         }
       );
       if (response.status === 200) alert("reserva atualizado com sucesso!");
