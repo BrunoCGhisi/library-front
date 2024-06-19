@@ -95,7 +95,7 @@ const Multas = () => {
         status,
       });
       getFine();
-      if (response.status === 200) alert("multa cadastro com sucesso!");
+      if (response.status === 200) alert("Multa cadastro com sucesso!");
     } catch (error: any) {
       console.log("aa", error.response?.data || error.message); // Log detalhado do erro
     } finally {
@@ -116,7 +116,7 @@ const Multas = () => {
           status,
         }
       );
-      if (response.status === 200) alert("multa atualizado com sucesso!");
+      if (response.status === 200) alert("Multa atualizado com sucesso!");
       getFine();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
@@ -131,7 +131,7 @@ const Multas = () => {
         `http://localhost:3000/multa?id=${id}`
       );
       getFine();
-      if (response.status === 200) alert("multa atualizado com sucesso!");
+      if (response.status === 200) alert("Multa atualizado com sucesso!");
     } catch (error: any) {
       new Error(error);
     }
@@ -309,8 +309,7 @@ const Multas = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
+
           />
         </Box>
 

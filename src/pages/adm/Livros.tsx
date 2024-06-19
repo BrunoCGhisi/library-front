@@ -98,7 +98,7 @@ const Livros = () => {
         capa,
       });
 
-      if (response.status === 200) alert("Adicionado com sucesso");
+      if (response.status === 200) alert("Livro adicionado com sucesso");
       getBooks();
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
@@ -127,7 +127,7 @@ const Livros = () => {
     } catch (error: any) {
       console.log("Erro na requisição:", error.response.data);
     } finally {
-      addOf();
+      putOf();
     }
   }
 

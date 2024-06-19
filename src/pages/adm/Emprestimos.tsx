@@ -92,7 +92,7 @@ const Emprestimos = () => {
         fk_status: fk_status,
       });
       getLoan();
-      if (response.status === 200) alert("reserva cadastro com sucesso!");
+      if (response.status === 200) alert("Emprestimo cadastrado com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
     } finally {
@@ -112,7 +112,7 @@ const Emprestimos = () => {
           fk_status: fk_status,
         }
       );
-      if (response.status === 200) alert("reserva atualizado com sucesso!");
+      if (response.status === 200) alert("Emprestimo atualizado com sucesso!");
       getLoan();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
@@ -298,8 +298,6 @@ const Emprestimos = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
           />
         </Box>
 

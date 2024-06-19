@@ -102,7 +102,7 @@ const Membros = () => {
         status,
       });
       getMembers();
-      if (response.status === 200) alert("membro cadastro com sucesso!");
+      if (response.status === 200) alert("Membro cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
     } finally {
@@ -124,7 +124,7 @@ const Membros = () => {
           status,
         }
       );
-      if (response.status === 200) alert("membro atualizado com sucesso!");
+      if (response.status === 200) alert("Membro atualizado com sucesso!");
       getMembers();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
@@ -139,7 +139,7 @@ const Membros = () => {
         `http://localhost:3000/membro?id=${id}`
       );
       getMembers();
-      if (response.status === 200) alert("membro atualizado com sucesso!");
+      if (response.status === 200) alert("Membro atualizado com sucesso!");
     } catch (error: any) {
       new Error(error);
     }

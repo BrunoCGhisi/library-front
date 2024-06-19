@@ -90,7 +90,7 @@ const putOf = () => setPOpen(false);
         valor,
       });
       getPayments();
-      if (response.status === 200) alert("Pagamentp cadastro com sucesso!");
+      if (response.status === 200) alert("Pagamento cadastro com sucesso!");
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data); // Log detalhado do erro
     } finally {
@@ -103,7 +103,7 @@ const putOf = () => setPOpen(false);
       const response = await axios.put(
         `http://localhost:3000/pagamento?id=${paymentsId}`
       );
-      if (response.status === 200) alert("membro atualizado com sucesso!");
+      if (response.status === 200) alert("Pagamento atualizado com sucesso!");
       getPayments();
     } catch (error: any) {
       console.error("Erro na requisição:", error.response.data);
@@ -261,8 +261,7 @@ const putOf = () => setPOpen(false);
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
+
           />
         </Box>
 

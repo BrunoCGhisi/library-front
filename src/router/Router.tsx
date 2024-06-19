@@ -14,6 +14,7 @@ import { Emprestimos } from "../pages";
 import { Status_emprestimos } from "../pages";
 import { Multas } from "../pages";
 import { Pagamentos } from "../pages";
+import { Imagem } from "../pages";
 
 //importando todas as paginas que foram exportadas no ../pages/index.ts
 
@@ -33,6 +34,7 @@ const Router = () => (
       <Route path="/Status_emprestimos" element={<Status_emprestimos />} />
       <Route path="/Multas" element={<Multas />} />
       <Route path="/Pagamentos" element={<Pagamentos />} />
+      <Route path="/Imagem"   element={<Imagem />} />
       <Route path="/Template" element={<Template />} />
       
       <Route path="*" element={<NoPage />} />

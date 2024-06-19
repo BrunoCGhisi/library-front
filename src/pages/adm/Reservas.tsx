@@ -291,8 +291,6 @@ const Reservas = () => {
               },
             }}
             pageSizeOptions={[6]}
-            checkboxSelection
-            disableRowSelectionOnClick
           />
         </Box>
 
